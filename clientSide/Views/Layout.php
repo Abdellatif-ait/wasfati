@@ -16,7 +16,8 @@ class layout
             <title><?php echo $title ?></title>
             <meta name="description" content=<?php echo $description ?> />
             <meta name="keywords" content=<?php echo self::KEYS ?> />
-            <link rel="stylesheet" href="style.css">
+            <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> -->
+            <link rel="stylesheet" href="style.css"> 
 
         </head>
     <?php
@@ -104,14 +105,16 @@ class layout
     }
 
     // Many of our views use similair Card
-    public function card($url, $title, $description)
+    public function card($id, $url, $title, $description)
     {
     ?>
-        <div>
-            <div>img</div>
-            <div> <?php echo $title ?> </div>
-            <div> <?php echo $description ?> </div>
-        </div>
+        <a href="" class="card">
+            <img src="Utils/test.jfif" alt="Logo" class="card-img">
+            <div class="card-body">
+                <h5 class="card-title"><?php echo $title ?></h5>
+                <p class="card-text"><?php echo $description ?></p>
+            </div>
+        </a>
 <?php
     }
 }
