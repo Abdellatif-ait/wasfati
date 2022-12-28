@@ -108,6 +108,7 @@ footer>div:first-child{
 }
 footer>div:first-child p{
     width: 50%;
+    font-family: 'Roboto';
 }
 footer>div:last-child{
     flex: 1;
@@ -137,6 +138,8 @@ footer>div{
     color: var(--primary1);
 }
 .footer-menu a{
+    font-family: 'Roboto';
+
     font-weight: 500;
     color: rgba(var(--black), 0.75);
 }
@@ -155,11 +158,11 @@ footer>div{
 
 .footer-social-media a{
     display: flex;
+    font-family: 'Roboto';
     align-items: center;
     gap: 8px;
     font-weight: 500;
     color: rgb(var(--black));
-
 }
 
 .footer-social-media a:hover{
@@ -176,4 +179,49 @@ footer>div{
 .footer-logo{
     transform: scale(1.16);
     padding-bottom: 24px;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: var(--secondary2);
+    /* width: 25%;
+    height: 55%; */
+    width: 250px;
+    height: 350px;
+    cursor: pointer;
+}
+.card-img{
+    object-fit: fill;
+    height: 65%;
+    border-radius: 8px;
+}
+.card-body{
+    height: 35%;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    gap:4px;
+}
+.card-title{
+    font-family: 'Raleway';
+    font-weight: bold;
+    font-size: 16px;
+    color: rgb(var(--black));
+}
+.card-text{
+    font-family: 'Roboto';
+    text-overflow: ellipsis;  
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(var(--black), 0.75);
+}
+
+.card:hover{
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
+    background-color: rgba(var(--bgRGB),0.5);
 }
