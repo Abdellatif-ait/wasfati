@@ -26,6 +26,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: rgba(var(--black),0.15) 1px solid;
 }
 
 
@@ -189,8 +190,6 @@ footer>div{
     border-radius: 8px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background-color: var(--secondary2);
-    /* width: 25%;
-    height: 55%; */
     width: 250px;
     min-height: 350px;
 }
@@ -292,4 +291,54 @@ footer>div{
 
 .carousel{
     background-color: rgba(var(--bgRGB),0.5);
+    margin: 48px 0;
+}
+
+.categories{
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 8px 16px;
+    margin: 48px 16px;
+    border-radius: 8px;
+}
+.category{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+.category-header{
+    font-family: 'Raleway';
+    font-weight: bold;
+    font-size: 16px;
+    color: rgb(var(--black));
+    display: flex;
+    justify-content: space-between;
+}
+.category-header a{
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(var(--black), 0.75);
+}
+.category-header a:hover{
+    color: var(--primary1);
+}
+.category-body{
+    width: 100%;
+    overflow-x: hidden;
+}
+.list-view{
+    display: flex;
+    flex-direction: row;
+    padding: 8px 16px;
+    gap: 48px;
+    width: fit-content;
+}
+.category-body:hover{
+    overflow-x: scroll;
+}
+.category-body::-webkit-scrollbar{
+    display: none;
 }

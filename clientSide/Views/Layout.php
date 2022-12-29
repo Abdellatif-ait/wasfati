@@ -105,14 +105,14 @@ class layout
     }
 
     // Many of our views use similair Card
-    public function card($id, $url, $title, $description)
+    public function card($Card)
     {
     ?>
-        <div href="" class="card-container">
-            <img src="Utils/test.jfif" alt="Logo" class="card-img">
+        <div class="card-container" key=<?php echo $Card->id ?>>
+            <img src=<?php echo $Card->url ?> alt="Logo" class="card-img">
             <div class="card-body">
-                <h5 class="card-header"><?php echo $title ?></h5>
-                <p class="card-content"><?php echo $description ?></p>
+                <h5 class="card-header"><?php echo $Card->title ?></h5>
+                <p class="card-content"><?php echo $Card->description ?></p>
             </div>
             <a class="prm-btn">lire la suite</a>
         </div>
@@ -120,49 +120,81 @@ class layout
     }
 
     //Swiper
-    public function swipper(){
+    public function swipper($List){
         ?>
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-pause="hover">
                 <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="2000">
-                        <div class="swiper-item">
-                            <img src="Utils/test.jfif" alt="testImg" class="swiper-item-img">
-                            <div class="swiper-item-body">
-                                <div class="swiper-item-text">
-                                    <h3>Title1</h3>
-                                    <p>Taco Pasta is made with pasta shells, ground beef, cheese, and a handful of spices and seasonings so you get a delicious dinner in minutes!</p>
-                                </div>
-                                <a href="" class="prm-btn">afficher la suite</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="2000">
-                        <div class="swiper-item">
-                            <img src="Utils/test.jfif" alt="testImg" class="swiper-item-img">
-                            <div class="swiper-item-body">
-                                <div class="swiper-item-text">
-                                    <h3>Title2</h3>
-                                    <p>Taco Pasta is made with pasta shells, ground beef, cheese, and a handful of spices and seasonings so you get a delicious dinner in minutes!</p>
-                                </div>
-                                <a href="" class="prm-btn">afficher la suite</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="swiper-item" data-bs-interval="2000">
-                            <img src="Utils/test.jfif" alt="testImg" class="swiper-item-img">
-                            <div class="swiper-item-body">
-                                <div class="swiper-item-text">
-                                    <h3>Title3</h3>
-                                    <p>Taco Pasta is made with pasta shells, ground beef, cheese, and a handful of spices and seasonings so you get a delicious dinner in minutes!</p>
-                                </div>
-                                <a href="" class="prm-btn">afficher la suite</a>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                        $index=0;
+                        foreach($List as $Card){
+                            if($index == 0){
+                                $index++;
+                                ?>
+                                    <div class="carousel-item active" data-bs-interval="2000">
+                                        <div class="swiper-item">
+                                            <img src=<?php echo $Card->url ?> alt="testImg" class="swiper-item-img">
+                                            <div class="swiper-item-body">
+                                                <div class="swiper-item-text">
+                                                    <h3><?php echo $Card->title ?></h3>
+                                                    <p><?php echo $Card->description ?></p>
+                                                </div>
+                                                <a href="" class="prm-btn">afficher la suite</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php
+                            }else{
+                                ?>
+                                    <div class="carousel-item" data-bs-interval="2000">
+                                        <div class="swiper-item">
+                                            <img src=<?php echo $Card->url ?> alt="testImg" class="swiper-item-img">
+                                            <div class="swiper-item-body">
+                                                <div class="swiper-item-text">
+                                                    <h3><?php echo $Card->title ?></h3>
+                                                    <p><?php echo $Card->description ?></p>
+                                                </div>
+                                                <a href="" class="prm-btn">afficher la suite</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php
+                            }
+                        }
+                    ?>
                 </div>
             </div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        <?php
+    }
+
+    //Categories
+    public function categories($List){
+        ?>
+            <div class="categories">
+                <?php
+                    foreach($List as $category){
+                        ?>
+                            <div class="category">
+                                <div class="category-header">
+                                    <h3>
+                                        <?php echo $category->title ?>
+                                    </h3>
+                                    <a href="">voir tout<img src="Utils/svg/arrowRightExtend.svg" alt=""></a>
+                                </div>
+                                <div class="category-body">
+                                    <div class="list-view">
+                                        <?php
+                                            foreach($category->List as $Card){
+                                                $this->card($Card);
+                                            }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                    }
+                ?>
+            </div>
         <?php
     }
 }
