@@ -130,7 +130,7 @@ class layout
                             if($index == 0){
                                 $index++;
                                 ?>
-                                    <div class="carousel-item active" data-bs-interval="2000">
+                                    <div class="carousel-item active" data-bs-interval="5000">
                                         <div class="swiper-item">
                                             <img src=<?php echo $Card->url ?> alt="testImg" class="swiper-item-img">
                                             <div class="swiper-item-body">
@@ -194,6 +194,178 @@ class layout
                         <?php
                     }
                 ?>
+            </div>
+        <?php
+    }
+    public function detailPage($data){
+        ?>
+            <!-- Recipe Page -->
+            <div>
+                <!-- Title & description & Image -->
+                <div class="horizontale-container">
+                    <div class="">
+                        <div class="header"> <!-- header -->
+                            <p><?php echo $data->title ?></p>
+                            <p><?php if(isset($data->difficulte)) echo $data->difficulte; ?></p>
+                            <?php if(isset($data->calories)){
+                                ?>
+                                    <p><?php echo $data->calories ?> <img src="Utils/svg/calorie.svg" alt=""></p>
+                                <?php
+                            }
+                            ?>
+                            <?php if(isset($data->rate)){
+                                ?>
+                                    <p><?php echo $data->rate ?> <img src="Utils/svg/star.svg" alt=""></p>
+                                <?php
+                            }
+                            ?>
+                            <button><img src="Utils/svg/favorite.svg" alt=""></button>
+                        </div>
+                        <p> <!---- description -->
+                            <?php echo $data->description ?>
+                        </p>
+                        <?php if(isset($data->timePreparation)){
+                            ?>
+                                <p><span class="H6">temps de preparation : &nbsp;</span><?php echo $data->timePreparation ?> min <img src="Utils/svg/time.svg" alt=""></p>
+                                <p><span class="H6">temps de repos : &nbsp;</span><?php echo $data->timeRepo ?> min <img src="Utils/svg/time.svg" alt=""></p>
+                                <p><span class="H6">temps de cuisson : &nbsp;</span><?php echo $data->timeCuisson ?> min <img src="Utils/svg/time.svg" alt=""></p>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                    <img src="<?php echo $data->imgPath?>" alt="RecipeImg">                   
+                </div>
+                <!-- Video & details -->
+                <div class="verticale-container">
+                    <div class="horizontale-container">
+                        <?php if(isset($data->ingredients)){
+                            ?>
+                                <div>
+                                    <p class="H6">Ingrédients</p>
+                                    <ul>
+                                        <?php
+                                            foreach($data->ingredients as $ingredient){
+                                                ?>
+                                                    <li><?php echo $ingredient ?></li>
+                                                <?php
+                                            }
+                                        ?>
+                                    </ul>
+                                </div>
+                            <?php
+                        }
+                        ?>
+                        <?php if(isset($data->steps)){
+                            ?>
+                                <div>
+                                    <p class="H6">Etapes</p>
+                                    <ol>
+                                        <?php
+                                            foreach($data->steps as $step){
+                                                ?>
+                                                    <li><?php echo $step ?></li>
+                                                <?php
+                                            }
+                                        ?>
+                                    </ol>
+                                </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                    <?php
+                        if(isset($data->videoPath)){
+                            ?>
+                                <video controls>
+                                    <source src="<?php echo $data->videoPath ?>" type="video/mp4">
+                                </video>
+                            <?php
+                        }
+                    ?>
+                </div>
+                <div class="rate-container">
+                    <p class="H6">Noté cette recette</p>
+                    <div class="rate">
+                        <input type="radio" id="star5" name="rate" value="5" />
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" id="star4" name="rate" value="4" />
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" id="star3" name="rate" value="3" />
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" id="star2" name="rate" value="2" />
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" id="star1" name="rate" value="1" />
+                        <label for="star1" title="text">1 star</label>
+                    </div>
+                </div>
+            </div>
+        <?php
+    }
+    public function listView($List){
+        ?>
+            <div class="list-container">
+                <div class="list-header">
+
+                </div>
+                <div class="list-grid">
+                    <?php
+                        foreach($List as $Card){
+                            $this->card($Card);
+                        }
+                    ?>
+                </div>
+            </div>
+        <?php
+    }
+    public function profile($profile){
+        ?>
+            <div class="profile">
+                <div class="profile-header">
+                    <div class="profile-img">
+                        <img src="Utils/assets/pdp.png" alt="pdp">
+                    </div>
+                    <div class="profile-info">
+                        <p class="H6">AITEUR Abdelatif</p>
+                        <p class="H6">ja_aiteur@esi.dz</p>
+                        <p><span class="H6">Sexe: </span>&nbsp;Homme</p>
+                        <p><span class="H6">Date de naissance: </span>&nbsp;15/12/2001</p>
+                    </div>
+                </div>
+                <div class="profile-body">
+                    <div class="verticale-container">
+                        <div class="horizantale-container">
+                            <p class="H6">
+                                Mes recettes
+                            </p>
+                            <button>ajouter une recette</button>
+                        </div>
+                        <div class="category-body">
+                            <div class="list-view">
+                                <?php
+                                    foreach($profile->List as $Card){
+                                        $this->card($Card);
+                                    }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="verticale-container">
+                        <div class="horizantale-container">
+                            <p class="H6">
+                                Les recettes favorisées
+                            </p>
+                        </div>
+                        <div class="category-body">
+                            <div class="list-view">
+                                <?php
+                                    foreach($profile->List as $Card){
+                                        $this->card($Card);
+                                    }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         <?php
     }
