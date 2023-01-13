@@ -317,20 +317,20 @@
         public function rateRecipe($id,$note,$userID){
             $db=new database();
             // search if it's already rated!
-            $sql="SELECT * FROM noter WHERE recetteID=:id AND userID=:userID";
+            $sql="SELECT * FROM recettefav WHERE recetteID=:id AND userID=:userID";
             $stmt=$db->db->prepare($sql);
             $stmt->execute(['id'=>$id,'userID'=>$userID]);
             $result=$stmt->fetchAll();
             if(count($result)>0){
                 // update
-                $sql="UPDATE noter SET note=:note WHERE recetteID=:id AND userID=:userID";
+                $sql="UPDATE recettefav SET rate=:note WHERE recetteID=:id AND userID=:userID";
                 $stmt=$db->db->prepare($sql);
                 $stmt->execute(['id'=>$id,'note'=>$note,'userID'=>$userID]);
                 $db->disconnect();
                 return;
             }
             // insert
-            $sql="INSERT INTO noter (recetteID,note,userID) VALUES (:id, :note, :userID)";
+            $sql="INSERT INTO recettefav (recetteID,rate,userID) VALUES (:id, :note, :userID)";
             $stmt=$db->db->prepare($sql);
             $stmt->execute(['id'=>$id,'note'=>$note,'userID'=>$userID]);
             $db->disconnect();

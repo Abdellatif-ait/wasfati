@@ -75,6 +75,13 @@ require_once __DIR__.'/../Models/user.php';
             $this->userComponents->listView($data,$params[0],$filter);
             $this->userComponents->footer();
         }
+        public function contactDisplay(){
+            $this->userComponents->head("Contact page","a page for contact");
+            $this->userComponents->navbar();
+            $this->userComponents->contact();
+            $this->userComponents->footer();
+        }
+
         public function loginHandler(){
             $email=strip_tags(trim($_POST['email']));
             $password=strip_tags(trim($_POST['password']));
@@ -205,9 +212,8 @@ require_once __DIR__.'/../Models/user.php';
 
         public function rateRecipe(){
             session_start();
-            print_r('hii');
-            $id=strip_tags(trim($_GET['id']));
-            $note=intval(strip_tags(trim($_GET['note'])));
+            $id=strip_tags(trim($_POST['id']));
+            $note=intval(strip_tags(trim($_POST['note'])));
             $userID=$_SESSION['user']['userID'];
             $Model=new recipeModel();
             $recipe=$Model->rateRecipe($id,$note,$userID);

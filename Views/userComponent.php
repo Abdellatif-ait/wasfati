@@ -57,11 +57,11 @@ class userComponents
 
             <div class="call-action">
                 <div class="social-media">
-                    <a href="">
+                    <a href="https://www.facebook.com/abdellatif.aiteur">
                         <img src="/Utils/facebook.png" alt="facebook">
                     </a>
-                    <a href=""><img src="/Utils/instagram.png" alt="instagram"></a>
-                    <a href=""><img src="/Utils/linkedin.png" alt="linkedin" class="linkedin"></a>
+                    <a href="instagram.com/abdellatifaiteur/"><img src="/Utils/instagram.png" alt="instagram"></a>
+                    <a href="https://www.linkedin.com/in/abdelatif-aiteur-29a2b1216/"><img src="/Utils/linkedin.png" alt="linkedin" class="linkedin"></a>
                 </div>
 
                 <?php
@@ -114,9 +114,9 @@ class userComponents
             <div>
                 <p class="H6">Social Media</p>
                 <div class="footer-social-media">
-                    <a href=""><img src="/Utils/facebook.png" alt="facebook">WasfatiOrg</a>
-                    <a href=""><img src="/Utils/instagram.png" alt="instagram">Wasfati01</a>
-                    <a href=""><img src="/Utils/linkedin.png" alt="linkedin" class="linkedin">WasfatiOrg</a>
+                    <a href="https://www.facebook.com/abdellatif.aiteur"><img src="/Utils/facebook.png" alt="facebook">WasfatiOrg</a>
+                    <a href="instagram.com/abdellatifaiteur/"><img src="/Utils/instagram.png" alt="instagram">Wasfati01</a>
+                    <a href="https://www.linkedin.com/in/abdelatif-aiteur-29a2b1216/"><img src="/Utils/linkedin.png" alt="linkedin" class="linkedin">WasfatiOrg</a>
                 </div>
             </div>
         </footer>
@@ -132,15 +132,24 @@ class userComponents
             <div class="card-body">
                 <h5 class="card-header"><?php echo $Card['titre'] ?></h5>
                 <p class="card-content"><?php echo $Card['description'] ?></p>
+                <p class="card-content">
+                    <?php
+                    if ($type == 'nutrition') {
+                        foreach ($Card['nutrition'] as $info) {
+                            echo $info['titre'].': '.$info['description'] . '<br>';
+                        }
+                    }
+                    ?>
+                </p>
             </div>
             <?php
             if ($type != 'nutrition') {
-                ?>
+            ?>
                 <a href="/index.php/detailDisplay/<?php if ($type == 'news') {
-                                                    echo $Card['type'] . '&' . $Card['id'];
-                                                } else {
-                                                    echo $type . '&' . $Card['id'];
-                                                } ?>" class="prm-btn">lire la suite</a>
+                                                        echo $Card['type'] . '&' . $Card['id'];
+                                                    } else {
+                                                        echo $type . '&' . $Card['id'];
+                                                    } ?>" class="prm-btn">lire la suite</a>
             <?php
             }
             ?>
@@ -183,7 +192,7 @@ class userComponents
                                         <h3><?php echo $Card['titre'] ?></h3>
                                         <p><?php echo $Card['description'] ?></p>
                                     </div>
-                                    <a href="https://<?php echo $Card['url'] ?>" target="_blank" class="prm-btn">afficher la suite</a>
+                                    <a href="<?php echo $Card['url'] ?>" target="_blank" class="prm-btn">afficher la suite</a>
                                 </div>
                             </div>
                         </div>
@@ -317,51 +326,32 @@ class userComponents
                 ?>
             </div>
             <?php
-                session_start();
-                if (isset($_SESSION['user'])) {
-                    ?>
-                    <div class="rate-container">
-                        <p class="H6">Noté cette recette</p>
-                        <form class="rate" action="">
-                            <input type="text" name="id" value="<?php echo $data['recetteID'] ?>" hidden>
-                            <input type="radio" id="star5" name="rate" value="5" <?php if($data['userRate']==5) echo 'checked'?> />
-                            <label for="star5" title="text">5 stars</label>
-                            <input type="radio" id="star4" name="rate" value="4" <?php if($data['userRate']==4) echo 'checked'?> />
-                            <label for="star4" title="text">4 stars</label>
-                            <input type="radio" id="star3" name="rate" value="3" <?php if($data['userRate']==3) echo 'checked'?> />
-                            <label for="star3" title="text">3 stars</label>
-                            <input type="radio" id="star2" name="rate" value="2" <?php if($data['userRate']==2) echo 'checked'?> />
-                            <label for="star2" title="text">2 stars</label>
-                            <input type="radio" id="star1" name="rate" value="1"<?php if($data['userRate']==1) echo 'checked'?>  />
-                            <label for="star1" title="text">1 star</label>
+            session_start();
+            if (isset($_SESSION['user'])) {
+            ?>
+                <div class="rate-container">
+                    <p class="H6">Noté cette recette</p>
+                    <form class="rate" action="">
+                        <input type="text" name="id" value="<?php echo $data['recetteID'] ?>" hidden>
+                        <input type="radio" id="star5" name="rate" value="5" <?php if ($data['userRate'] == 5) echo 'checked' ?> />
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" id="star4" name="rate" value="4" <?php if ($data['userRate'] == 4) echo 'checked' ?> />
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" id="star3" name="rate" value="3" <?php if ($data['userRate'] == 3) echo 'checked' ?> />
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" id="star2" name="rate" value="2" <?php if ($data['userRate'] == 2) echo 'checked' ?> />
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" id="star1" name="rate" value="1" <?php if ($data['userRate'] == 1) echo 'checked' ?> />
+                        <label for="star1" title="text">1 star</label>
                         </from>
-                        <script>
-                            $('.rate>input').click(function(e) {
-                                e.preventDefault();
-                                let id= $(this).parent().find('input[name="id"]').val();
-                                console.log(id)
-                                let data = $(this).val();
-                                data = {
-                                    id: id,
-                                    rate: data
-                                }
-                                $.get({
-                                    url: "index.php/rateRecipe",
-                                    data: data,
-                                    success: function(response) {
-                                        console.log(response);
-                                    }
-                                });
-                            })
-                        </script>
-                    </div>
-                <?php
-                }
+                </div>
+            <?php
+            }
             ?>
         </div>
     <?php
     }
-    public function listView($List, $type , $filter)
+    public function listView($List, $type, $filter)
     {
 
     ?>
@@ -376,7 +366,7 @@ class userComponents
                             <input type="search" placeholder="Rechercher sur votre recette">
                             <button id="filter-btn">filtrer <img src="../../Utils/svg/filter.svg" alt=""></button>
                         </div>
-                        <form action="<?php echo $type?>" class="filter-container">
+                        <form action="<?php echo $type ?>" class="filter-container">
                             <div class="filter">
                                 <div class="filter-item">
                                     <p class="H6">Difficulté</p>
@@ -496,14 +486,14 @@ class userComponents
                             </div>
                         </form>
                     </div>
-                    
+
+                    <?php
+                    $keys = array_keys($filter);
+                    foreach ($keys as $key) {
+                        if ($filter[$key] != "") {
+                    ?>
+                            <button class="secondary-btn"><?php echo $key . ':' . $filter[$key] ?></button>
                 <?php
-                    $keys=array_keys($filter);
-                    foreach($keys as $key){
-                        if($filter[$key] != ""){
-                        ?>
-                            <button class="secondary-btn"><?php echo $key.':'. $filter[$key] ?></button>
-                        <?php
                         }
                     }
                 } ?>
@@ -517,13 +507,6 @@ class userComponents
                 ?>
             </div>
         </div>
-        <script>
-            const filterButton = document.getElementById('filter-btn');
-            filterButton.addEventListener('click', event => {
-                const filterContainer = document.getElementsByClassName('filter-container');
-                filterContainer[0].classList.toggle('active');
-            });
-        </script>
     <?php
     }
     public function profile($profile)
@@ -534,7 +517,7 @@ class userComponents
                 <img src="../../Utils/assets/pdp.png" alt="pdp">
                 <div class="horizontale-container">
                     <div class="profile-info">
-                        <p class="H4"><?php echo $profile['nom']." ".$profile['prenom'] ?></p>
+                        <p class="H4"><?php echo $profile['nom'] . " " . $profile['prenom'] ?></p>
                         <p class="H6"><?php echo $profile['email'] ?></p>
                         <p><span class="H6">Sexe: </span>&nbsp;<?php echo $profile['sexe'] ?></p>
                         <p><span class="H6">Date de naissance: </span>&nbsp;<?php echo $profile['dateNaissance'] ?></p>
@@ -644,73 +627,33 @@ class userComponents
                 </form>
             </div>
         </div>
-        <script>
-            const loginSwitch = document.getElementById('login-switch');
-            const registerSwitch = document.getElementById('register-switch');
-
-            const loginContainer = document.querySelector('.login');
-            const registerContainer = document.querySelector('.register');
-
-            loginSwitch.addEventListener('click', () => {
-                console.log("hi")
-                loginContainer.classList.remove('active');
-                registerContainer.classList.add('active');
-            });
-
-            registerSwitch.addEventListener('click', () => {
-                loginContainer.classList.add('active');
-                registerContainer.classList.remove('active');
-            });
-        </script>
-<?php
+    <?php
     }
-    public function contact(){
+    public function contact()
+    {
         //contact page that has social media links and a contact form
-        ?>
-        <div class="contact">
+    ?>
+        <div class="horizontale-container">
             <div class="contact-header">
-                <h1>Contactez-nous</h1>
-                <p>Vous avez des questions? Vous pouvez nous contacter via les réseaux sociaux ou via le formulaire de contact ci-dessous</p>
+                <object data="/Utils/svg/Logo.svg" class="auth-logo"></object>
             </div>
             <div class="contact-body">
-                <div class="contact-form">
-                    <form action="contactHandler" method="post">
-                        <div class="verticale-container">
-                            <label for="nom">Nom</label>
-                            <input type="text" name="nom" id="nom" placeholder="votre nom">
-                        </div>
-                        <div class="verticale-container">
-                            <label for="prenom">prenom</label>
-                            <input type="text" name="prenom" id="prenom" placeholder="votre prenom">
-                        </div>
+                <h1>Contactez-nous</h1>
+                    <form class="contact-form" action="contactHandler" method="post">
                         <div class="verticale-container">
                             <label for="email">Email</label>
                             <input type="text" name="email" id="email" placeholder="Email">
                         </div>
                         <div class="verticale-container">
-                            <label for="message">Message</label>
-                            <textarea name="message" id="message" cols="30" rows="10"></textarea>
+                            <label class="H6" for="message">Message</label>
+                            <textarea name="message" id="message" cols="30" rows="8"></textarea>
                         </div>
-                        <input type="submit" value="Envoyer" class="prm-btn">
+                        <button type="submit" class="prm-btn">Envoyer</button>
                     </form>
-                </div>
-                <div class="contact-social">
-                    <div class="social">
-                        <object data="/Utils/svg/facebook.svg" class="social-icon"></object>
-                        <p>Facebook</p>
-                    </div>
-                    <div class="social">
-                        <object data="/Utils/svg/instagram.svg" class="social-icon"></object>
-                        <p>Instagram</p>
-                    </div>
-                    <div class="social">
-                        <object data="/Utils/svg/twitter.svg" class="social-icon"></object>
-                        <p>Twitter</p>
-                    </div>
-                </div>
             </div>
-        <?php
+        </div>
+    <?php
 
     }
 }
-?>
+    ?>
