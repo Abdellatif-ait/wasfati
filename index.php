@@ -9,7 +9,7 @@ $params = array();
 if (isset($url[3])) {
     $params = explode('&', $url[3]);
 }
-require_once('Controllers/userController.php');
+require_once(__DIR__.'/Controllers/userController.php');
 $controller = new userController();
 //check if action exists
 

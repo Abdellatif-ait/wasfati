@@ -41,7 +41,7 @@ class userComponents
                     <ul class="sub-menu">
                         <li><a href="/index.php/listDisplay/recettes?healthy=1">Healthy</a></li>
                         <li><a href="/index.php/listDisplay/recettes?saison=hiver">Saison</a></li>
-                        <li><a href="/index.php/listDisplay/recettes">Fête</a></li>
+                        <li><a href="/index.php/listDisplay/recettes?fete=all">Fête</a></li>
                     </ul>
                 </li>
                 <li><a href="/index.php/listDisplay/nutrition">Nutrition</a></li>
@@ -105,7 +105,7 @@ class userComponents
                     </ul>
                     <ul>
                         <li><a href="/index.php/listDisplay/recettes?saison=hiver">Saison</a></li>
-                        <li><a href="/index.php/listDisplay/recettes">Fêtes</a></li>
+                        <li><a href="/index.php/listDisplay/recettes?fete=all">Fêtes</a></li>
                         <li><a href="/index.php/listDisplay/nutrition">Nutrution</a></li>
                         <li><a href="/index.php/contactDisplay">contact us</a></li>
                     </ul>
@@ -480,6 +480,24 @@ class userComponents
                                         <label for="plus-800">Tous</label><br>
                                     </div>
                                 </div>
+                                <div class="filter-item">
+                                    <p class="H6">Fête</p>
+                                    <div class="filter-item-content">
+                                        <input type="checkbox" id="aid al fitr" name="fete" value="aid al fitr">
+                                        <label for="aid al fitr">aid al fitr</label><br>
+                                        <input type="checkbox" id="aid al adha" name="fete" value="aid al adha">
+                                        <label for="aid al adha">aid al adha</label><br>
+                                        <input type="checkbox" id="all" name="fete" value="all">
+                                        <label for="all">Tous</label><br>
+                                    </div>
+                                </div>
+                                <div class="filter-item">
+                                    <p class="H6">healthy</p>
+                                    <div class="filter-item-content">
+                                        <input type="checkbox" id="healthy" name="healthy" value="1">
+                                        <label for="healthy">healthy</label><br>
+                                    </div>
+                                </div>
                             </div>
                             <div>
                                 <input type="submit" class="prm-btn" value="Appliquer">
@@ -608,7 +626,7 @@ class userComponents
                     </div>
                     <div class="verticale-container">
                         <label for="pdp">photo de profile</label>
-                        <input type="file" name="pdp" id="pdp" accept=".png,.jpg">
+                        <input type="file" name="pdp" id="pdp" accept=".png,.jpg" disabled>
                     </div>
                     <div class="verticale-container">
                         <label for="sexe">Sexe</label>
@@ -631,7 +649,7 @@ class userComponents
     }
     public function contact()
     {
-        //contact page that has social media links and a contact form
+        //contact page that has social media links 
     ?>
         <div class="horizontale-container">
             <div class="contact-header">
@@ -639,17 +657,38 @@ class userComponents
             </div>
             <div class="contact-body">
                 <h1>Contactez-nous</h1>
-                    <form class="contact-form" action="contactHandler" method="post">
-                        <div class="verticale-container">
-                            <label for="email">Email</label>
-                            <input type="text" name="email" id="email" placeholder="Email">
-                        </div>
-                        <div class="verticale-container">
-                            <label class="H6" for="message">Message</label>
-                            <textarea name="message" id="message" cols="30" rows="8"></textarea>
-                        </div>
-                        <button type="submit" class="prm-btn">Envoyer</button>
-                    </form>
+                <div class="verticale-container">
+                    <div class="horizantale-container">
+                        <a href="https://www.facebook.com/">
+                            <object data="/Utils/facebook.png" class="social-media-icon"></object>
+                            wasfati
+                        </a>
+                    </div>
+                    <div class="horizantale-container">
+                        <a href="https://www.instagram.com/">
+                            <object data="/Utils/instagram.png" class="social-media-icon"></object>
+                            wasfati
+                        </a>
+                    </div>
+                    <div class="horizantale-container">
+                        <a href="https://www.linkedin.com/">
+                            <object data="/Utils/linkedin.png" class="social-media-icon"></object>
+                            wasfati
+                        </a>
+                    </div>
+                    <div class="horizantale-container">
+                        <a href="mailto:ja_aiteur@esi.dz">
+                            <object data="/Utils/gmail.png" class="social-media-icon"></object>
+                            ja_aiteur@esi.dz
+                        </a>
+                    </div>
+                    <div class="horizantale-container">
+                        <a href="tel:+213 540 194 496">
+                            <object data="/Utils/phone.png" class="social-media-icon"></object>
+                            +213 540 194 496
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     <?php

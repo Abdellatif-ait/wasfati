@@ -2,7 +2,7 @@
     require_once __DIR__.'/db.php';
     class recipeModel{
         //get recipes according to filter
-        public function getRecipesFiltered($filter){
+        public function getRecipesFiltered(){
             $db=new database();
             $sql="SELECT recetteID id,recette.*,categorie.categorieID categorieID, categorie.titre categorie FROM recette join categorie on recette.categorieID=categorie.categorieID where state=1 ORDER BY recetteID DESC";
             $stmt=$db->db->prepare($sql);
@@ -43,101 +43,6 @@
                 $stmt->execute(['id'=>$value['recetteID']]);
                 $result[$key]['rate']=$stmt->fetch()['rate'];
             }
-            // Filter by categorie
-
-            if(isset($filter['typePlat'])){
-                foreach($result as $key=>$value){
-                    if($value['categorie']!=$filter['typePlat']){
-                        unset($result[$key]);
-                    }
-                }
-            }
-            // Filter by saison
-            if(isset($filter['saison'])){
-                foreach($result as $key=>$value){
-                    $found=false;
-                    foreach($value['saison'] as $saison){
-                        if($saison['titre']==$filter['saison']){
-                            $found=true;
-                        }
-                    }
-                    if(!$found){
-                        unset($result[$key]);
-                    }
-                }
-            }
-            // Filter by fete
-            if(isset($filter['fete'])){
-                foreach($result as $key=>$value){
-                    $found=false;
-                    foreach($value['fete'] as $fete){
-                        if($fete['titre']==$filter['fete']){
-                            $found=true;
-                        }
-                    }
-                    if(!$found){
-                        unset($result[$key]);
-                    }
-                }
-            }
-            // Filter by tempsPreparation
-            if(isset($filter['tempsPreparation']) && $filter['tempsPreparation']!=0){
-                foreach($result as $key=>$value){
-                    if($value['timePreparation']>$filter['timePreparation']){
-                        unset($result[$key]);
-                    }
-                }
-            }
-            // Filter by tempsRepo
-            if(isset($filter['timeRepo']) && $filter['timeRepo']!=0){
-                foreach($result as $key=>$value){
-                    if($value['tempsRepo']>$filter['timeRepo']){
-                        unset($result[$key]);
-                    }
-                }
-            }
-            // Filter by tempsCuisson
-            if(isset($filter['timeCuisson']) && $filter['timeCuisson']!=0){
-                foreach($result as $key=>$value){
-                    if($value['tempsCuisson']>$filter['timeCuisson']){
-                        unset($result[$key]);
-                    }
-                }
-            }
-            // Filter by difficulte
-            if(isset($filter['difficulte'])){
-                foreach($result as $key=>$value){
-                    if($value['difficulte']!== $filter['difficulte']){
-                        unset($result[$key]);
-                    }
-                }
-            }
-            // Filter by calories
-
-            if(isset($filter['calories']) && $filter['calories']!=0){
-                foreach($result as $key=>$value){
-                    if($value['calories']>$filter['calories']){
-                        unset($result[$key]);
-                    }
-                }
-            }
-            // Filter by rate
-            if(isset($filter['note']) && $filter['note']!=0){
-                foreach($result as $key=>$value){
-                    if($value['rate']<$filter['note']){
-                        unset($result[$key]);
-                    }
-                }
-            }
-            // Filter Healthy
-            if(isset($filter['healthy']) && $filter['healthy']==1){
-                foreach($result as $key=>$value){
-                    if($value['healthy']==0){
-                        unset($result[$key]);
-                    }
-                }
-            }
-
             $db->disconnect();
             return $result;
         }
@@ -334,6 +239,52 @@
             $stmt=$db->db->prepare($sql);
             $stmt->execute(['id'=>$id,'note'=>$note,'userID'=>$userID]);
             $db->disconnect();
+        }
+
+        //get fete recipes
+        public function getFeteRecipes(){
+            $db=new database();
+            $sql="SELECT * from recette where recetteID in (SELECT recetteID from feterecette)";
+            $stmt=$db->db->prepare($sql);
+            $stmt->execute();
+            $result=$stmt->fetchAll();
+            //get fete of each recette
+            $sql= "SELECT * FROM feterecette join fete on feterecette.feteID=fete.feteID  WHERE recetteID=:id";
+            $stmt=$db->db->prepare($sql);
+            foreach($result as $key=>$value){
+                $stmt->execute(['id'=>$value['recetteID']]);
+                $result[$key]['fete']=$stmt->fetchAll();
+            }
+            // Get saison of each recette
+            $sql= "SELECT * FROM recettesaison join saison on recettesaison.saisonID=saison.saisonID WHERE recetteID=:id";
+            $stmt=$db->db->prepare($sql);
+            foreach($result as $key=>$value){
+                $stmt->execute(['id'=>$value['recetteID']]);
+                $result[$key]['saison']=$stmt->fetchAll();
+            }
+            // Get ingredients of each recette
+            $sql= "SELECT * FROM composent join ingredient on composent.ingredientID=ingredient.ingredientID WHERE recetteID=:id";
+            $stmt=$db->db->prepare($sql);
+            foreach($result as $key=>$value){
+                $stmt->execute(['id'=>$value['recetteID']]);
+                $result[$key]['ingredients']=$stmt->fetchAll();
+            }
+            // Get steps of each recette
+            $sql= "SELECT * FROM etape WHERE recetteID=:id order by etape";
+            $stmt=$db->db->prepare($sql);
+            foreach($result as $key=>$value){
+                $stmt->execute(['id'=>$value['recetteID']]);
+                $result[$key]['steps']=$stmt->fetchAll();
+            }
+            // Get rate
+            $sql= "SELECT AVG(rate) rate FROM recettefav WHERE recetteID=:id";
+            $stmt=$db->db->prepare($sql);
+            foreach($result as $key=>$value){
+                $stmt->execute(['id'=>$value['recetteID']]);
+                $result[$key]['rate']=$stmt->fetch()['rate'];
+            }
+            $db->disconnect();
+            return $result;
         }
         
     }
