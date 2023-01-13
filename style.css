@@ -320,6 +320,7 @@ footer>div{
     color: rgb(var(--black));
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .category-header a{
@@ -327,6 +328,7 @@ footer>div{
     font-weight: 500;
     font-size: 14px;
     color: rgba(var(--black), 0.75);
+    
 }
 
 .category-header a:hover{
@@ -359,8 +361,13 @@ footer>div{
     color: rgb(var(--black));
     font-weight: 600;
 }
-.header>p{
+.header>li{
     margin: 0;
+    font-family: 'Roboto';
+}
+
+.header-container{
+    width: 100%;
 }
 .horizontale-container,.verticale-container{
     display: flex;
@@ -397,13 +404,12 @@ footer>div{
     width: fit-content;
 }
 .rate {
-    float:left;
+    float: left;
     height: 46px;
     padding: 0 10px;
 }
 .rate:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
+    display: none;
 }
 .rate:not(:checked) > label {
     float:right;
@@ -420,19 +426,219 @@ footer>div{
 .rate > input:checked ~ label {
     color: rgb(var(--black));    
 }
-.rate:not(:checked) > label:hover {
-    color: rgba(var(--black),0.75);  
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: rgba(var(--black), 0.75);  
 }
-.rate > input:checked + label:hover{
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
     color: rgb(var(--black));
-}
-.rate-container>.H6{
-    text-align: center;
 }
 .list-grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, 1fr);
-    grid-gap: 40px;
-    margin: auto;
+    grid-template-columns: repeat(auto-fit, 250px);
+    justify-content: center;
+    place-items: center;
+    column-gap: 48px;
+    row-gap: 24px;
     padding: 8px 16px;
+}
+.profile-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 96px;
+    padding: 16px 32px;
+}
+.profile-header>img{
+    width: 320px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.profile-header>.horizontale-container>input{
+    width: fit-content;
+    height: fit-content;
+    padding: 8px 16px;
+    background-color: white;
+    border: 0;
+}
+.H4{
+    font-family: 'Raleway';
+    font-weight: bold;
+    font-size: 24px;
+    color: rgb(var(--black));
+}
+.profile-header>.horizontale-container{
+    gap: 32px;
+}
+.secondary-btn{
+    background-color: white;
+    border: 0;
+    padding: 4px 8px;
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba(var(--black), 0.75);
+    border: 1px solid rgba(var(--black), 0.75);
+    border-radius: 8px;
+}
+.secondary-btn:hover{
+    background-color: rgba(var(--black), 0.75);
+    color: white;
+}
+.list-header{
+    margin: 8px 16px;
+    padding: 8px 16px;
+}
+.search{
+    width: 35%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    background-color: rgba(var(--black), 0.1);
+    border-radius: 8px;
+}
+.search>input{
+    width: 75%;
+    padding: 8px 16px;
+    border: 0;
+    border-radius: 8px;
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba(var(--black), 0.75);
+    background-color: unset;
+}
+#filter-btn{
+    display: flex;
+    width: fit-content;
+    border: 0;
+    border-radius: 8px;
+    background-color: white;
+    align-items: center;
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba(var(--black), 0.75);
+    padding: 2px 4px;
+}
+.search img{
+    transform: scale(0.8);
+}
+
+.filter-container{
+    background-color: rgba(var(--black), 0.1);
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: none;
+
+}
+.filter{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 240px);
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
+}
+
+.list-filter{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 8px 16px;
+}
+
+
+.Form{
+    width: 45%;
+}
+.Form .horizontale-container,.Form .verticale-container{
+    padding: 8px 16px;
+}
+.Form label,.Form input{
+    display:block;
+    padding: 8px 16px;
+}
+.Form input{
+    border: 1px rgba(var(--black),0.15) solid;
+    border-radius: 8px;
+}
+.Form label{
+    font-family: 'Raleway';
+    font-weight: bold;
+    font-size: 16px;
+    color: rgb(var(--black));
+}
+
+.register,.login{
+    display: none;
+    padding: 16px 32px;
+    background-color: rgba(var(--bgRGB),0.5);
+    border-radius: 8px;
+}
+
+
+.register>h3 ,.login>h3{
+    font-family: 'Raleway';
+    font-weight: bold;
+    font-size: 32px;
+    color: rgb(var(--black));
+    text-align: center;
+}
+.Form .prm-btn{
+    margin: auto;
+}
+.Form p{
+    text-align: center;
+}
+.Form p>span{
+    color: var(--primary1);
+    font-family: 'Roboto';
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+}
+.auth-logo{
+    width: 45%;
+    height: 480px;
+    object-fit: cover;
+}
+.nav-logo{
+    width: 48px;
+    height: 48px;
+}
+.footer-logo{
+    width: 160px;
+    height: 160px;
+}
+.auth-logo{
+    width: 45%;
+}
+
+.active{
+    display: block;
+}
+.not-found{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 16px 32px;
+    font-family: 'Roboto';
+}
+
+.dashboard-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 240px);
+    align-items: flex-start;
+    justify-content: center;
+    gap: 48px;
 }
