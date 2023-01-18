@@ -1,5 +1,4 @@
 <?php
-    include_once __DIR__.'/../config/config.php';
     class composentModel{
         public function getModeCuissons(){
             $db=new database();

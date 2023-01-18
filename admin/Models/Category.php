@@ -4,17 +4,10 @@
         // Get all categories
         public function getCategories(){
             $db=new database();
-            $sql="SELECT * FROM categorie";
+            $sql="SELECT categorieID id,titre FROM categorie";
             $stmt=$db->db->prepare($sql);
             $stmt->execute();
             $result=$stmt->fetchAll();
-            // Get recipes
-            $sql="SELECT recetteID id,recette.* FROM recette where categorieID=:id limit 10";
-            $stmt=$db->db->prepare($sql);
-            foreach($result as $key=>$value){
-                $stmt->execute(['id'=>$value['categorieID']]);
-                $result[$key]['recipes']=$stmt->fetchAll();
-            }
             $db->disconnect();
             return $result;
         }
@@ -25,11 +18,6 @@
             $stmt=$db->db->prepare($sql);
             $stmt->execute(['id'=>$id]);
             $result=$stmt->fetch();
-            // Get recipes
-            $sql="SELECT * FROM recette where categorieID=:id";
-            $stmt=$db->db->prepare($sql);
-            $stmt->execute(['id'=>$id]);
-            $result['recipes']=$stmt->fetchAll();
             $db->disconnect();
             return $result;
         }

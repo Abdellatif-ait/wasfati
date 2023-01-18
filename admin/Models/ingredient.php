@@ -4,7 +4,7 @@
         public function getIngredients(){
             $db=new database();
             // Get ingredients
-            $sql="SELECT ingredient.*,saison.titre saison FROM ingredient join saison on ingredient.originSaison=saison.saisonID";
+            $sql="SELECT ingredient.ingredientID id,ingredient.*,saison.titre saison FROM ingredient join saison on ingredient.originSaison=saison.saisonID";
             $stmt=$db->db->prepare($sql);
             $stmt->execute();
             $result=$stmt->fetchAll();
@@ -42,9 +42,18 @@
         }
         public function addIngredient($ingredient){
             $db=new database();
-            $sql="INSERT INTO ingredient (ingredientName,ingredientDescription) VALUES (:name,:description)";
+            $sql="SELECT * from ingredient where titre=:name";
             $stmt=$db->db->prepare($sql);
-            $stmt->execute(['name'=>$ingredient['name'],'description'=>$ingredient['description']]);
+            $stmt->execute(['name'=>$ingredient['titre']]);
+            $result=$stmt->fetch();
+            if($result){
+                // return id
+                $db->disconnect();
+                return $result['ingredientID'];
+            }
+            $sql="INSERT INTO ingredient (titre,imgPath,healthy) VALUES (:titre,:imgPath,:healthy)";
+            $stmt=$db->db->prepare($sql);
+            $stmt->execute(['titre'=>$ingredient['titre'],'imgPath'=>$ingredient['imgPath'],'healthy'=>$ingredient['healthy']]);
             $ingredientID=$db->db->lastInsertId();
             $db->disconnect();
             return $ingredientID;
