@@ -4,7 +4,7 @@
         public function getIngredients(){
             $db=new database();
             // Get ingredients
-            $sql="SELECT ingredient.*,saison.titre saison FROM ingredient join saison on ingredient.originSaison=saison.saisonID";
+            $sql="SELECT ingredient.ingredientID id,ingredient.*,saison.titre saison FROM ingredient join saison on ingredient.originSaison=saison.saisonID";
             $stmt=$db->db->prepare($sql);
             $stmt->execute();
             $result=$stmt->fetchAll();
@@ -42,18 +42,27 @@
         }
         public function addIngredient($ingredient){
             $db=new database();
-            $sql="INSERT INTO ingredient (ingredientName,ingredientDescription) VALUES (:name,:description)";
+            $sql="SELECT * from ingredient where titre=:name";
             $stmt=$db->db->prepare($sql);
-            $stmt->execute(['name'=>$ingredient['name'],'description'=>$ingredient['description']]);
+            $stmt->execute(['name'=>$ingredient['titre']]);
+            $result=$stmt->fetch();
+            if($result){
+                // return id
+                $db->disconnect();
+                return $result['ingredientID'];
+            }
+            $sql="INSERT INTO ingredient (titre,imgPath,originSaison,healthy) VALUES (:titre,:imgPath,:originSaison,:healthy)";
+            $stmt=$db->db->prepare($sql);
+            $stmt->execute(['titre'=>$ingredient['titre'],'imgPath'=>$ingredient['imgPath'],'originSaison'=>$ingredient['originSaison'],'healthy'=>$ingredient['healthy']]);
             $ingredientID=$db->db->lastInsertId();
             $db->disconnect();
             return $ingredientID;
         }
         public function updateIngredient($ingredient){
             $db=new database();
-            $sql="UPDATE ingredient SET ingredientName=:name,ingredientDescription=:description WHERE ingredientID=:id";
+            $sql="UPDATE ingredient SET titre=:titre,imgPath=:imgPath,healthy=:healthy,originSaison=:originSaison WHERE ingredientID=:id";
             $stmt=$db->db->prepare($sql);
-            $stmt->execute(['name'=>$ingredient['name'],'description'=>$ingredient['description'],'id'=>$ingredient['id']]);
+            $stmt->execute(['titre'=>$ingredient['titre'],'imgPath'=>$ingredient['imgPath'],'healthy'=>$ingredient['healthy'], 'originSaison'=>$ingredient['originSaison'] ,'id'=>$ingredient['id']]);
             $db->disconnect();
         }
         public function deleteIngredient($id){
@@ -63,6 +72,10 @@
             $stmt->execute(['id'=>$id]);
             // delete infonutritionnelle
             $sql="DELETE FROM infonutritionnelle WHERE ingredientID=:id";
+            $stmt=$db->db->prepare($sql);
+            $stmt->execute(['id'=>$id]);
+            // delete dispoingredient
+            $sql="DELETE FROM dispoingredient WHERE ingredientID=:id";
             $stmt=$db->db->prepare($sql);
             $stmt->execute(['id'=>$id]);
             $db->disconnect();
@@ -97,11 +110,11 @@
             $stmt->execute(['id'=>$dispo['id'],'saison'=>$dispo['saison']]);
             $db->disconnect();
         }
-        public function deleteDispo($id,$saison){
+        public function deleteDispo($id){
             $db=new database();
-            $sql="DELETE FROM dispoingredient WHERE ingredientID=:id AND saisonID=:saison";
+            $sql="DELETE FROM dispoingredient WHERE ingredientID=:id";
             $stmt=$db->db->prepare($sql);
-            $stmt->execute(['id'=>$id,'saison'=>$saison]);
+            $stmt->execute(['id'=>$id]);
             $db->disconnect();
         }
     }
