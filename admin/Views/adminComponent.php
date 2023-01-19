@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/popout.php';
 class adminComponent
 {
     // Contante attribute that hold the keywords of our website
@@ -41,12 +41,22 @@ class adminComponent
                 <li><a href="index.php?action=mentoring&page=newsPage">NewsPage</a></li>
                 <li><a href="index.php?action=mentoring&page=users">Users</a></li>
                 <li><a href="index.php?action=mentoring&page=categories">Categories</a></li>
-                <li><a href="index.php?action=mentoring&page=params">Params</a></li>
+                <li><a href="index.php?action=mentoring&page=diaporama">Params</a></li>
+                <li><a href="index.php?action=mentoring&page=params">Config</a></li>
             </ul>
             <div class="call-action">
-                <a href="index.php" target="_blank" class="secondary-btn">Visiter Site</a>
-
-                <a href="?index.php?action=logout" class="prm-btn">Se deconnecter</a>
+                <a href="/wasfati/client/index.php" target="_blank" class="secondary-btn">Visiter Site</a>
+                <?php
+                if (isset($_SESSION['admin'])) {
+                ?>
+                    <a href="index.php?action=logoutHandler" class="prm-btn">Logout</a>
+                <?php
+                } else {
+                ?>
+                    <a href="index.php?action=authDisplay" class="prm-btn">S'indentifier</a>
+                <?php
+                }
+                ?>
             </div>
         </nav>
     <?php
@@ -91,6 +101,7 @@ class adminComponent
     public function mentoring($list, $type)
     {
         // table with filter 
+        $popout = new Popout();
     ?>
         <div class="view-container">
             <div class="verticale-container">
@@ -133,7 +144,7 @@ class adminComponent
                             }
                             ?>
                             <td>
-                                <button class="Secondary-btn" data-id="<?php echo  $value['id'] ?>" data-type="<?php echo $type ?>">Modifier</button>
+                                <button class="Secondary-btn edit" data-id="<?php echo  $value['id'] ?>" data-type="<?php echo $type ?>">Modifier</button>
                             </td>
                             <td>
                                 <button class="Secondary-btn delete" data-id="<?php echo $value['id'] ?>" id="supprimer" data-type="<?php echo $type ?>">Supprimer</button>
@@ -186,68 +197,52 @@ class adminComponent
                             })
                         })
                     });
+                    btns = document.querySelectorAll('.edit');
+                    btns.forEach(element => {
+                        element.addEventListener('click', function(e) {
+                            let dataId = element.getAttribute('data-id');
+                            let type = element.getAttribute('data-type');
+                            $.ajax({
+                                url: "index.php?action=get<?php echo $type?>",
+                                type: "GET",
+                                data: {
+                                    id: dataId,
+                                },
+                                success: function(data) {
+                                    
+                                }
+                            })
+                        })
+                    });
                 </script>
-                <div class="popout">
-                    <form action="index.php?action=addLogic" class="popout-container" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="type" value="<?php echo $type ?>">
-                        <h3 class="H4">Ajouter <?php echo $type ?></h3>
-                        <label for="titre" class="H6">titre</label>
-                        <input type="text" name="titre" id="titre">
-                        <label for="description" class="H6">description</label>
-                        <input type="text" name="description" id="description">
-                        <label for="image" class="H6">image</label>
-                        <input type="file" name="image" id="image">
-                        <label for="video" class="H6">video</label>
-                        <input type="file" name="video" id="video">
-                        <?php
-                        if ($type == 'recipes') {
-                        ?>
-                            <label for="tempsPreparation" class="H6">temps de preparation</label>
-                            <input type="number" name="tempsPreparation" id="tempsPreparation" min="0">
-                            <label for="tempsRepo" class="H6">temps de Repos</label>
-                            <input type="number" name="tempsRepo" id="tempsRepo" min="0">
-                            <label for="tempsCuisson" class="H6">temps de cuisson</label>
-                            <input type="number" name="tempsCuisson" id="tempsCuisson" min="0">
-                            <label for="difficulte" class="H6">difficulte</label>
-                            <select name="difficulte" id="difficulte">
-                                <option value="facile">facile</option>
-                                <option value="moyen">moyen</option>
-                                <option value="difficile">difficile</option>
-                            </select>
-                            <label for="categorie" class="H6">categorie</label>
-                            <select name="categorie" id="categorie">
-                                <option value="1">plat</option>
-                            </select>
-                            <label for="calories" class="H6">calories</label>
-                            <input type="number" name="calories" id="calories" min="0">
-                            <label for="steps" class="H6">steps</label>
-                            <input type="text" name="steps" id="steps" placeholder="step1,step2,step3...">
-                            <label for="ingredients" class="H6">ingredients</label>
-                            <input type="text" name="ingredients" id="ingredients" placeholder="ing1:mode:nb:healthy,ingredient2:modeCuisson:nb..." multiple list="ingredient-list">
-                            <datalist id="ingredient-list">
-                            </datalist>
-                            <label for="fete" class="H6">fete</label>
-                            <input type="text" name="fete" id="fete" placeholder="fete1,fete2,fete3..." multiple list="fete-list">
-                            <datalist id="fete-list">
-                                <option value="noel">
-                                <option value="halloween">
-                                <option value="anniversaire">
-                                <option value="ramadan">
-                                <option value="eid">
-                            </datalist>
-                        <?php
-                        }
-                        ?>
-                        <div class="horizantale-container">
-                            <button class="Secondary-btn" id="close-popout">
-                                annuler
-                            </button>
-                            <button type="submit" class="prm-btn" id="validate-btn">
-                                ajouter
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                <?php
+                switch ($type) {
+                    case 'recipes':
+                        $popout->addRecipe($type);
+                        break;
+                    case 'ingredients':
+                        $popout->addIngredient($type);
+                        break;
+                    case 'params':
+                        $popout->addParams($type);
+                        break;
+                    case 'news':
+                        $popout->addNews($type);
+                        break;
+                    case 'newsPage':
+                        $popout->addNewsPage($type);
+                        break;
+                    case 'diaporama':
+                        $popout->addDiaporama($type);
+                        break;
+                    case 'users':
+                        $popout->addUser($type);
+                        break;
+                    case 'categories':
+                        $popout->addCategorie($type);
+                        break;
+                }
+                ?>
             </div>
         </div>
     <?php
@@ -255,14 +250,13 @@ class adminComponent
     public function auth()
     {
     ?>
-        <div class="admin-auth">
-            <object data="Utils/svg/Logo.svg" class="auth-logo"></object>
+        <div class="horizontale-container">
             <div class="form">
-                <form method="post" action="loginHandler" class="login">
+                <form method="post" action="index.php?action=loginHandler" class="login">
                     <h3>Connecter-vous</h3>
                     <div class="verticale-container">
-                        <label for="email">Email</label>
-                        <input type="text" name="email" placeholder="Email">
+                        <label for="username">username</label>
+                        <input type="text" name="username" placeholder="username">
                     </div>
                     <div class="verticale-container">
                         <label for="password">Mot de passe</label>

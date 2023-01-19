@@ -166,26 +166,33 @@ menu a:active, .menu a:hover, .menu a:focus {
     color: rgb(var(--black));
     text-align: center;
 }
-.Form{
+.horizontale-container{
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 32px;
+}
+.form{
     width: 45%;
 }
-.Form .verticale-container{
+.form .horizontale-container,.form .verticale-container{
     padding: 8px 16px;
 }
-.Form label,.Form input{
+.form label,.form input{
     display:block;
     padding: 8px 16px;
 }
-.Form input{
+.form input{
     border: 1px rgba(var(--black),0.15) solid;
     border-radius: 8px;
 }
-.Form label{
+.form label{
     font-family: 'Raleway';
     font-weight: bold;
     font-size: 16px;
     color: rgb(var(--black));
 }
+
 .table-container{
     padding: 16px 32px;
     background-color: rgba(var(--bgRGB),0.5);
