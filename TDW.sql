@@ -8,6 +8,8 @@ SET time_zone = "+00:00";
 Create database if not exists wasfati;
 use wasfati;
 
+-- --------------------------------------------------------
+
 --
 -- Structure de la table `admin`
 --
@@ -99,7 +101,10 @@ INSERT INTO `composent` (`recetteID`, `ingredientID`, `modeID`, `quantite`) VALU
 (43, 18, NULL, '1'),
 (43, 5, NULL, '1'),
 (43, 26, NULL, '20'),
+(48, 24, 40, '2'),
+(48, 3, 64, '250'),
 (47, 31, NULL, '1'),
+(48, 34, 40, '1'),
 (45, 27, NULL, '1'),
 (45, 28, NULL, '1'),
 (45, 30, NULL, '1'),
@@ -108,7 +113,28 @@ INSERT INTO `composent` (`recetteID`, `ingredientID`, `modeID`, `quantite`) VALU
 (45, 29, NULL, '1'),
 (47, 5, NULL, '1'),
 (47, 33, NULL, '15'),
-(47, 32, NULL, '150');
+(47, 32, NULL, '150'),
+(48, 35, 40, '2'),
+(48, 36, 40, '70'),
+(48, 23, 40, '5'),
+(51, 38, 40, '1'),
+(51, 16, 40, '1'),
+(51, 40, 40, '2'),
+(51, 19, 40, '2'),
+(51, 37, 40, '2'),
+(51, 5, 40, '1'),
+(51, 18, 40, '1'),
+(51, 39, 40, '1'),
+(51, 41, 40, '2'),
+(52, 42, 64, '3'),
+(52, 24, 40, '1'),
+(52, 43, 40, '200'),
+(52, 33, 40, '20'),
+(52, 22, 40, '1'),
+(52, 5, 40, '1'),
+(52, 18, 40, '1'),
+(52, 44, 40, '1'),
+(52, 30, 40, '1');
 
 -- --------------------------------------------------------
 
@@ -228,7 +254,23 @@ INSERT INTO `dispoingredient` (`ingredientID`, `saisonID`) VALUES
 (33, 1),
 (33, 2),
 (33, 3),
-(33, 4);
+(33, 4),
+(37, 1),
+(37, 2),
+(37, 3),
+(37, 4),
+(38, 1),
+(38, 2),
+(38, 3),
+(38, 4),
+(39, 1),
+(39, 2),
+(39, 3),
+(39, 4),
+(40, 1),
+(40, 2),
+(40, 3),
+(40, 4);
 
 -- --------------------------------------------------------
 
@@ -286,6 +328,34 @@ INSERT INTO `etape` (`recetteID`, `etape`, `instruction`) VALUES
 (45, 4, 'Puis versez le couscous dans le récipient et arrosez avec un verre d’eau puis ajoutez du sel. Mélangez bien, toujours avec vos doigts, jusqu’à ce que le couscous ait bien absorbé l’eau.\r\n\r\n'),
 (45, 5, 'Pendant ce temps, déposez les petits pois et les fèves dans le haut du couscoussier et faites-les cuire à la vapeur. Quand la vapeur commence à sortir du couscoussier, prolongez la cuisson de 10 minutes puis retirez les légumes du panier.\r\n\r\n'),
 (45, 6, 'Préparez votre mesfouf algérien en mélangeant les petits pois, les fèves et le couscous dans la jatte, et servez bien chaud.'),
+(51, 16, 'Saupoudrez de paprika'),
+(51, 10, 'Déposez alors les poivrons sur une planche à découper et retirez la peau. Coupez les poivrons en deux'),
+(51, 11, ' enlevez les pépins puis taillez en julienne (petits dés).'),
+(51, 12, 'Faites bouillir une casserole d’eau et plongez les tomates une minute dedans. Egouttez-les'),
+(51, 13, ' retirez la peau puis coupez-les en julienne.'),
+(51, 14, 'Chauffez une poêle avec un peu d’huile d’olive et faites revenir l’ail quelques minutes avant d’ajouter les tomates'),
+(51, 15, ' puis les poivrons. Poursuivez la cuisson pendant 5 minutes.'),
+(48, 21, '48'),
+(48, 19, 'Poursuivre la cuisson durant 10 minutes à couvert.'),
+(48, 20, 'Servez aussitôt votre chorba algérienne en décorant d\'un peu de coriandre fraîche.'),
+(48, 15, 'Ajoutez 1'),
+(48, 16, '5 litre d\'eau dans la cocotte et faites mijoter votre chorba algérienne à feu fort durant 20 minutes.'),
+(48, 17, 'Ajoutez le concentré de tomates'),
+(48, 18, ' les vermicelles et les pois chiches et rectifiez l\'assaisonnement.'),
+(48, 12, 'Ajoutez toutes les épices'),
+(48, 13, ' salez et poivrez.'),
+(48, 14, 'Ciselez la coriandre et versez la moitié dans la cocotte avec les légumes et la viande. Réservez le reste pour la décoration.'),
+(48, 11, ' les tomates et l\'oignon à la viande puis laissez revenir 5 minutes.'),
+(48, 10, 'Ajoutez les légumes'),
+(48, 9, ' râpez les tomates.'),
+(48, 6, ' faites chauffer l\'huile d\'olive et faites caraméliser la viande 2 minutes de chaque côté.'),
+(48, 7, 'Parallèlement'),
+(48, 8, ' pelez et émincez l\'oignon'),
+(48, 5, 'Coupez la viande en petits morceaux. Dans une grande cocotte'),
+(48, 2, ' mettre les pois chiches à tremper dans un grand volume d\'eau. Le jour de la recette'),
+(48, 3, ' les égoutter et réserver.'),
+(48, 4, 'Epluchez les légumes et coupez-les en dés grossiers.'),
+(48, 1, 'La veille'),
 (47, 1, 'Mélangez dans une gasaa en bois ou en terre et à défaut dans un large plat creux la semoule avec le sel.'),
 (47, 2, 'Ramassez la semoule en ajoutant de l\'eau au fur et à mesure jusqu\'à obtention d\'une boule de pâte souple'),
 (47, 3, ' ferme et qui ne colle pas. Recouvrez-la avec un linge propre et faites-la reposer 30 minutes.'),
@@ -305,7 +375,22 @@ INSERT INTO `etape` (`recetteID`, `etape`, `instruction`) VALUES
 (47, 17, ' des petits carrés de 1 cm de côté.Étalez les carrés de trida algérien sur le linge propre et poursuivez le séchage pendant au moins 24 heures et jusqu\'à 2-3 jours en fonction toujours de la température ambiante.'),
 (47, 18, 'Conservez vos pâtes trida algérien à l\'abri de l\'humidité'),
 (47, 19, ' au sec dans une boîte fermée. Vous pouvez les conserver plusieurs semaines avant de les utiliser pour confectionner vos recettes de trida en sauce blanche ou rouge. Les petits carrés de pâte trida seront cuits à la vapeur au-dessus du bouillon de cuisson de la viande et des légumes.'),
-(47, 20, '47');
+(47, 20, '47'),
+(51, 9, ' couvrez d’un film alimentaire et laissez reposer 15 minutes pour qu’ils refroidissent.'),
+(51, 8, ' déposez-les dans un saladier'),
+(51, 6, 'Dès que la peau commence à former des cloques'),
+(51, 7, ' sortez-les du four'),
+(51, 4, 'Lavez les poivrons'),
+(51, 5, ' et déposez-les directement sur une grille allant au four. Enfournez pendant 25 à 30 minutes environ. Les poivrons doivent légèrement noircir sur toutes les faces.'),
+(51, 3, 'Ciselez le persil.'),
+(51, 2, 'Emincez les gousses d’ail. Réservez.'),
+(51, 1, 'Préchauffez le four à 200°C (Th. 6/7).'),
+(52, 2, '52'),
+(52, 1, ''),
+(51, 19, 'Saupoudrez de persil avant de servir bien chaud.'),
+(51, 20, '51'),
+(51, 18, 'Cassez les œufs dans la poêle et faites cuire comme des œufs au plat par dessus la garniture.'),
+(51, 17, ' assaisonnez avec le sel et le poivre et laissez cuire jusqu’à ce que les poivrons deviennent fondants.');
 
 -- --------------------------------------------------------
 
@@ -359,7 +444,9 @@ INSERT INTO `feterecette` (`recetteID`, `feteID`) VALUES
 (42, 10),
 (43, 10),
 (45, 11),
-(47, 12);
+(47, 12),
+(51, 10),
+(52, 10);
 
 -- --------------------------------------------------------
 
@@ -375,7 +462,7 @@ CREATE TABLE IF NOT EXISTS `infonutritionnelle` (
   `ingredientID` int(11) DEFAULT NULL,
   PRIMARY KEY (`infoID`),
   KEY `ingredientID` (`ingredientID`)
-) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `infonutritionnelle`
@@ -418,7 +505,11 @@ INSERT INTO `infonutritionnelle` (`infoID`, `titre`, `description`, `ingredientI
 (36, 'Lipides', '81mg', 30),
 (37, 'Calories', '360', 31),
 (38, '', NULL, 32),
-(39, '', NULL, 33);
+(39, '', NULL, 33),
+(40, '', NULL, 37),
+(41, '', NULL, 38),
+(42, '', NULL, 39),
+(43, '', NULL, 40);
 
 -- --------------------------------------------------------
 
@@ -435,20 +526,22 @@ CREATE TABLE IF NOT EXISTS `ingredient` (
   `originSaison` int(11) DEFAULT '1',
   PRIMARY KEY (`ingredientID`),
   KEY `originSaison` (`originSaison`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `ingredient`
 --
 
 INSERT INTO `ingredient` (`ingredientID`, `titre`, `imgPath`, `healthy`, `originSaison`) VALUES
-(2, 'courgettes', 'https://res.cloudinary.com/hv9ssmzrz/image/fetch/c_fill,f_auto,h_488,q_auto,w_650/https://images-ca-1-0-1-eu.s3-eu-west-1.amazonaws.com/photos/original/741/produit-courgettes-AdobeStock_86727844.jpg', 1, 1),
+(2, 'courgette', 'https://res.cloudinary.com/hv9ssmzrz/image/fetch/c_fill,f_auto,h_488,q_auto,w_650/https://images-ca-1-0-1-eu.s3-eu-west-1.amazonaws.com/photos/original/741/produit-courgettes-AdobeStock_86727844.jpg', 1, 0),
 (3, 'agneau', 'https://res.cloudinary.com/hv9ssmzrz/image/fetch/c_fill,f_auto,h_387,q_auto,w_650/https://s3-eu-west-1.amazonaws.com/images-ca-1-0-1-eu/tag_photos/original/251/selle-d-agneau-crue-3000x2000.jpg', 1, 2),
 (4, 'riz', 'https://res.cloudinary.com/hv9ssmzrz/image/fetch/c_fill,f_auto,h_488,q_auto,w_650/https://s3-eu-west-1.amazonaws.com/images-ca-1-0-1-eu/recipe_photos/original/871/bol-de-riz-3000x2000.jpg', 1, 3),
 (5, 'Sel', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Table_salt_with_salt_shaker_V1.jpg/800px-Table_salt_with_salt_shaker_V1.jpg', 0, 4),
 (6, 'oeuf', 'https://res.cloudinary.com/hv9ssmzrz/image/fetch/c_fill,f_auto,h_488,q_auto,w_650/https://s3-eu-west-1.amazonaws.com/images-ca-1-0-1-eu/recipe_photos/original/659/oeuf-dur-3000x2000.jpg', 1, 4),
-(13, 'Vinaigre', '../Asserts/63c8851262814téléchargement (5).jfif', 0, 1),
-(14, 'moutarde', '../Asserts/63c885c31cf4btéléchargement (1).jfif', 0, 1),
+(35, 'céleri', '', 1, NULL),
+(13, 'Vinaigre', '../Asserts/63c8a9728cfdf', 1, 0),
+(34, 'navet', '', 1, NULL),
+(14, 'moutarde', '../Asserts/63c8a997729da', 1, 0),
 (15, 'betterave', '../Asserts/63c886a05a4bftéléchargement.jfif', 1, 4),
 (16, 'persil', '../Asserts/63c88702bc447téléchargement (4).jfif', 1, 4),
 (17, 'huile d’olive', '../Asserts/63c887a488c3etéléchargement (2).jfif', 1, 3),
@@ -467,7 +560,16 @@ INSERT INTO `ingredient` (`ingredientID`, `titre`, `imgPath`, `healthy`, `origin
 (30, 'beurre', '../Asserts/63c894a6916bcimage_2023-01-19_015301943.png', 0, 2),
 (31, 'Semoule', '../Asserts/63c898019465cimage_2023-01-19_020724682.png', 1, 2),
 (32, 'pomme de terre', '../Asserts/63c8983185a02image_2023-01-19_020840641.png', 1, 3),
-(33, 'eau', '../Asserts/63c8986d58098image_2023-01-19_020956196.png', 1, 2);
+(33, 'Eau', '../Asserts/63c8986d58098image_2023-01-19_020956196.png', 1, 0),
+(36, 'vermicelles', '', 1, NULL),
+(37, 'poivrons rouges', '../Asserts/63c8beec818dcimage_2023-01-19_045344657.png', 1, 1),
+(38, 'poivron vert', '../Asserts/63c8bf204043eimage_2023-01-19_045454340.png', 1, 1),
+(39, 'paprika', '../Asserts/63c8bf60638c4image_2023-01-19_045604290.png', 0, 1),
+(40, 'gousses d\'ail', '../Asserts/63c8bf9e7edc5image_2023-01-19_045657060.png', 1, 1),
+(41, 'œuf', '', 1, NULL),
+(42, 'poulet', '', 1, NULL),
+(43, 'champignon', '', 1, NULL),
+(44, 'cannelle', '', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -480,7 +582,7 @@ CREATE TABLE IF NOT EXISTS `modecuisson` (
   `modeID` int(11) NOT NULL AUTO_INCREMENT,
   `titre` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`modeID`)
-) ENGINE=MyISAM AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `modecuisson`
@@ -488,54 +590,10 @@ CREATE TABLE IF NOT EXISTS `modecuisson` (
 
 INSERT INTO `modecuisson` (`modeID`, `titre`) VALUES
 (1, 'frire'),
-(22, 'sans'),
-(21, 'sans'),
-(20, 'sans'),
-(19, 'sans'),
-(18, 'sans'),
-(17, 'sans'),
-(16, 'sans'),
-(23, 'sans'),
-(24, 'sans'),
-(25, 'sans'),
-(26, 'sans'),
-(27, 'sans'),
-(28, 'sans'),
-(29, 'sans'),
-(30, 'sans'),
-(31, 'sans'),
-(32, 'sans'),
-(33, 'sans'),
-(34, 'sans'),
-(35, 'sans'),
-(36, 'sans'),
-(37, 'sans'),
-(38, 'sans'),
-(39, 'sans'),
 (40, 'sans'),
-(41, 'sans'),
-(42, 'sans'),
-(43, 'sans'),
 (44, 'fulminé'),
-(45, 'fulminé'),
-(46, 'sans'),
-(47, 'sans'),
-(48, 'sans'),
-(49, 'fulminé'),
-(50, 'fulminé'),
-(51, 'fulminé'),
-(52, 'sans'),
-(53, 'sans'),
-(54, 'sans'),
-(55, 'fulminé'),
-(56, 'sans'),
-(57, 'sans'),
 (58, 'tiede'),
-(59, 'sans'),
-(60, 'sans'),
-(61, 'sans'),
-(62, 'tiede'),
-(63, 'sans');
+(64, 'cuire');
 
 -- --------------------------------------------------------
 
@@ -551,14 +609,15 @@ CREATE TABLE IF NOT EXISTS `news` (
   `imgPath` varchar(255) DEFAULT NULL,
   `videoPath` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`newsID`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `news`
 --
 
 INSERT INTO `news` (`newsID`, `titre`, `description`, `imgPath`, `videoPath`) VALUES
-(1, 'An idiot’s guide to grilling whole fish', 'f I write about cooking fish, I almost always get a comment about how smelly it is. If I suggest moving the cooking outside to the grill, I hear from friends with sad tales of losing fillets to the white-hot coals or winding up with overcooked, dried-out food.', 'https://static.independent.co.uk/2022/06/07/14/onthefridge-0b656dc2-d5f0-11ec-80e7-0fac5856f7cb.jpg?quality=75&width=990&auto=webp&crop=982:726,smart', 'IMG');
+(1, 'New easy recipe for orange jus', '', 'https://img.cuisineaz.com/660x660/2018/11/17/i144270-jus-d-orange.webp', ''),
+(8, 'Today\'s the d-day', 'i want a 20 in TPW so i\'m still working till 6AM', '../Asserts/63c8caebbcbeatéléchargement (8).jfif', '../Asserts/63c8caebbd040');
 
 -- --------------------------------------------------------
 
@@ -575,7 +634,7 @@ CREATE TABLE IF NOT EXISTS `newspage` (
   PRIMARY KEY (`id`),
   KEY `newsID` (`newsID`),
   KEY `recetteID` (`recetteID`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `newspage`
@@ -583,7 +642,8 @@ CREATE TABLE IF NOT EXISTS `newspage` (
 
 INSERT INTO `newspage` (`id`, `newsID`, `recetteID`, `url`) VALUES
 (1, NULL, 3, 'www.google.com'),
-(2, 1, NULL, 'www.google.com');
+(2, 1, NULL, 'www.google.com'),
+(7, 8, NULL, 'http://localhost/wasfati/client/index.php?action=detailDisplay&type=recettes&id=4');
 
 -- --------------------------------------------------------
 
@@ -597,14 +657,23 @@ CREATE TABLE IF NOT EXISTS `params` (
   `cle` varchar(100) DEFAULT NULL,
   `valeur` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`paramID`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `params`
 --
 
 INSERT INTO `params` (`paramID`, `cle`, `valeur`) VALUES
-(2, 'fb', 'https://www.facebook.com/abdellatif.aiteur/');
+(2, 'facebook', 'https://www.facebook.com/abdellatif.aiteur/'),
+(3, 'primary1', '#DD5353'),
+(4, 'primary2', '#B73E3E'),
+(5, 'secondary1', '#DBC8AC'),
+(6, 'secondary2', '#EDDBC0'),
+(7, 'black', '34, 32, 32'),
+(8, 'bgRGB', '237, 219, 192'),
+(9, 'body', '255, 255,255'),
+(10, 'instagram', 'https://www.instagram.com/abdellatifaiteur/'),
+(11, 'linkedin', 'https://www.linkedin.com/in/abdelatif-aiteur-29a2b1216/');
 
 -- --------------------------------------------------------
 
@@ -631,7 +700,7 @@ CREATE TABLE IF NOT EXISTS `recette` (
   PRIMARY KEY (`recetteID`),
   KEY `categorieID` (`categorieID`),
   KEY `userID` (`userID`)
-) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `recette`
@@ -647,8 +716,11 @@ INSERT INTO `recette` (`recetteID`, `titre`, `description`, `imgPath`, `videoPat
 (41, 'Salade de betterave', 'Salade de betterave facile a faire.', '../Asserts/63c88b784137ai38198-salade-de-betterave-facile.webp', '../Asserts/63c88b78419ad', 'facile', 1, 15, 0, 0, 122, 1, NULL, 1),
 (42, 'Salade de tomates', 'Un grand classique de l\'été qui marche tout le temps, avec tout le monde : la salade de tomates ! Très rafraîchissante, très savoureuse, et excellente pour la santé, cette salade d\'été est tout simplement parfaite. Voilà une recette facile et rapide, qui régalera la tablée des petits et des grands. Des tomates bien mûres et bien juteuses, avec de l\'oignon, de la ciboulette, de la coriandre, et un bon assaisonnement. Une explosion de fraîcheur et de saveurs à tester très vite ! Vous serez ravis !', '../Asserts/63c88f530a45bimage_2023-01-19_012829857.png', '../Asserts/63c88f530a683', 'facile', 1, 10, 0, 0, 191, 1, NULL, 1),
 (43, 'Salade de carotte', 'Salade de carotte facile a faire.', '../Asserts/63c8927bba6eaimage_2023-01-19_013957535.png', '../Asserts/63c8927bbab4b', 'facile', 1, 5, 0, 0, 65, 1, NULL, NULL),
-(45, 'Mesfouf', 'La recette du mesfouf algérien est un incontournable de la cuisine musulmane pendant le Ramadan. Avec des fèves et des petits pois et son couscous fondant cuit à la vapeur, le mesfouf algérien saura enchanter vos papilles !', '../Asserts/63c895ba9a492image_2023-01-19_015429053.png', '../Asserts/63c895ba9a75b', 'facile', 1, 10, 0, 35, 164, 2, NULL, NULL),
-(47, 'Trida', 'Le trida algérien tient son nom des petites pâtes carrées avec lesquelles différents plats de viandes et légumes en sauce rouge ou blanche sont préparés. Cette recette vous permettra de faire vous-même, avec l\'aide d\'une machine à pâtes, les petits carrés du trida algérien qu\'il est assez difficile de trouver dans le commerce. Nous vous conseillons de fabriquer vos pâtes quelques jours avant de vous lancer dans la préparation du plat !', '../Asserts/63c899b8a6cdfimage_2023-01-19_021031668.png', '../Asserts/63c899b8a7201', 'difficile', 1, 60, 210, 0, 300, 2, NULL, NULL);
+(45, 'Mesfouf', 'La recette du mesfouf algérien est un incontournable de la cuisine musulmane pendant le Ramadan. Avec des fèves et des petits pois et son couscous fondant cuit à la vapeur, le mesfouf algérien saura enchanter vos papilles !', '../Asserts/63c895ba9a492image_2023-01-19_015429053.png', '../Asserts/yt5s.io-Mesfouf aux fèves et aux petits pois.mp4', 'facile', 1, 10, 0, 35, 164, 2, NULL, NULL),
+(48, 'Chorba', 'La chorba à l\'algérienne est une soupe traditionnelle orientale principalement consommée en Algérie (comme son nom l\'indique !) mais également en Tunisie et au Maroc lors de la période du ramadan. C\'est une soupe à base de viande d\'agneau ou de mouton, de tomates, de vermicelles et de légumes. On trouve également des variantes à base de boeuf ou de veau', '../Asserts/63c8bc438fea7image_2023-01-19_042100853.png', '../Asserts/63c8bc439005f', 'facile', 1, 30, 0, 20, 344, 2, NULL, NULL),
+(47, 'Trida', 'Le trida algérien tient son nom des petites pâtes carrées avec lesquelles différents plats de viandes et légumes en sauce rouge ou blanche sont préparés. Cette recette vous permettra de faire vous-même, avec l\'aide d\'une machine à pâtes, les petits carrés du trida algérien qu\'il est assez difficile de trouver dans le commerce. Nous vous conseillons de fabriquer vos pâtes quelques jours avant de vous lancer dans la préparation du plat !', '../Asserts/63c899b8a6cdfimage_2023-01-19_021031668.png', '../Asserts/63c899b8a7201', 'difficile', 1, 60, 210, 0, 300, 2, NULL, NULL),
+(51, 'Chakchouka', 'La chakchouka algérienne est une délicieuse entrée aux légumes que l’on sert chaude ou froide et qui est très prisée pendant le Ramadan, accompagnée de baghrir. On peut la comparer à la ratatouille traditionnelle française. La chakchouka algérienne que l’on appelle aussi tchektchouka se prépare très facilement et est un plat diététique par excellence.', '../Asserts/63c8c17a52d19image_2023-01-19_050059161.png', '../Asserts/63c8c17a52ebc', 'facile', 1, 15, 15, 60, 375, 2, NULL, NULL),
+(52, 'Tajine', 'Selon son pays d’origine, le tajine se pare d’ingrédients et de saveurs différentes. Coloré, savoureux et riche en épices, le tajine algérien nous emmène en voyage, le temps d’un délicieux repas.', '../Asserts/63c91bed656a3image_2023-01-19_112701176.png', '../Asserts/63c91bed658ec', 'facile', 1, 20, 0, 50, 130, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -673,7 +745,8 @@ INSERT INTO `recettefav` (`recetteID`, `userID`, `rate`) VALUES
 (4, 1, 3),
 (6, 1, 3),
 (3, 1, 4),
-(7, 1, 1);
+(7, 1, 1),
+(43, 1, 1);
 
 -- --------------------------------------------------------
 
