@@ -150,10 +150,10 @@ class userComponents
                                                                     echo $type . '&id=' . $Card['id'];
                                                                 } ?>" class="prm-btn">lire la suite</a>
             <?php
-            }else if($Card['healthy']==1){
-                ?>
-                    <p class="Secondary-btn"><?php  echo "Healthy"  ?></p>
-                <?php
+            } else if ($Card['healthy'] == 1) {
+            ?>
+                <p class="Secondary-btn"><?php echo "Healthy"  ?></p>
+            <?php
             }
 
             ?>
@@ -349,6 +349,23 @@ class userComponents
                         <label for="star1" title="text">1 star</label>
                         </from>
                 </div>
+                <script>
+                    $('.rate>input').click(function(e) {
+                        let id = $(this).parent().find('input[name="id"]').val();
+                        let rate = $(this).val();
+                        data = {
+                            id: id,
+                            note: rate
+                        }
+                        $.post({
+                            url: "index.php?action=rateRecipe",
+                            data: data,
+                            success: function(response) {
+                                location.reload();
+                            }
+                        });
+                    })
+                </script>
             <?php
             }
             ?>
@@ -530,7 +547,11 @@ class userComponents
                     foreach ($keys as $key) {
                         if ($filter[$key] != "") {
                     ?>
-                            <button class="secondary-btn"><?php if(is_array($filter[$key])){echo $key;}else{echo $key .''.$filter[$key];} ?></button>
+                            <button class="secondary-btn"><?php if (is_array($filter[$key])) {
+                                                                echo $key;
+                                                            } else {
+                                                                echo $key . '' . $filter[$key];
+                                                            } ?></button>
                 <?php
                         }
                     }

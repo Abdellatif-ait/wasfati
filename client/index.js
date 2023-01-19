@@ -1,19 +1,20 @@
 $(document).ready(function() {
     // Rating a recipe
     $('.rate>input').click(function(e) {
-        e.preventDefault();
         let id = $(this).parent().find('input[name="id"]').val();
-        console.log(id)
-        let data = $(this).val();
+        let rate = $(this).val();
+        console.log($(this));
+        console.log(id);
         data = {
             id: id,
-            note: data
+            note: rate
         }
         $.post({
-            url: "/index.php/rateRecipe",
+            url: "index.php?action=rateRecipe",
             data: data,
             success: function(response) {
-                location.reload();
+                console.log(data)
+                // location.reload();
             }
         });
     })
@@ -39,7 +40,7 @@ $(document).ready(function() {
     //autocomplete search
     $('#search').click(function() {
         $.get({
-            url: "/index.php/getIngredients",
+            url: "/index.php?action=getIngredients",
             success: function(response) {
                 let ingredients = JSON.parse(response);
                 let ingredientsList = [];
