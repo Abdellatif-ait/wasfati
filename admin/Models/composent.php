@@ -20,10 +20,19 @@
         }
         public function addModeCuisson($mode){
             $db=new database();
+            $sql='SELECT * from modecuisson where titre=:mode';
+            $stmt=$db->db->prepare($sql);
+            $stmt->execute(['mode'=>$mode]);
+            $result=$stmt->fetch();
+            if($result){
+                return $result['modeID'];
+            }
             $sql="INSERT INTO modecuisson (titre) VALUES (:mode)";
             $stmt=$db->db->prepare($sql);
             $stmt->execute(['mode'=>$mode]);
+            $modeID=$db->db->lastInsertId();
             $db->disconnect();
+            return $modeID;
         }
         public function deleteModeCuisson($id){
             $db=new database();

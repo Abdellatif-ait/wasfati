@@ -60,9 +60,9 @@
         }
         public function updateIngredient($ingredient){
             $db=new database();
-            $sql="UPDATE ingredient SET ingredientName=:name,ingredientDescription=:description WHERE ingredientID=:id";
+            $sql="UPDATE ingredient SET titre=:titre,imgPath=:imgPath,healthy=:healthy,originSaison=:originSaison WHERE ingredientID=:id";
             $stmt=$db->db->prepare($sql);
-            $stmt->execute(['name'=>$ingredient['name'],'description'=>$ingredient['description'],'id'=>$ingredient['id']]);
+            $stmt->execute(['titre'=>$ingredient['titre'],'imgPath'=>$ingredient['imgPath'],'healthy'=>$ingredient['healthy'], 'originSaison'=>$ingredient['originSaison'] ,'id'=>$ingredient['id']]);
             $db->disconnect();
         }
         public function deleteIngredient($id){

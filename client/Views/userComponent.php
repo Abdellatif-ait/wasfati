@@ -18,7 +18,7 @@ class userComponents
             <meta name="description" content=<?php echo $description ?> />
             <meta name="keywords" content=<?php echo self::KEYS ?> />
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-            <link rel="stylesheet" href="style.css">
+            <link rel="stylesheet" href="style.php">
             <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
             <script src="index.js"></script>
         </head>
@@ -56,11 +56,11 @@ class userComponents
 
             <div class="call-action">
                 <div class="social-media">
-                    <a href="https://www.facebook.com/abdellatif.aiteur">
+                    <a href="<?php echo $GLOBALS['facebook'] ?>">
                         <img src="Utils/facebook.png" alt="facebook">
                     </a>
-                    <a href="instagram.com/abdellatifaiteur/"><img src="Utils/instagram.png" alt="instagram"></a>
-                    <a href="https://www.linkedin.com/in/abdelatif-aiteur-29a2b1216/"><img src="Utils/linkedin.png" alt="linkedin" class="linkedin"></a>
+                    <a href="<?php echo $GLOBALS['instagram'] ?>"><img src="Utils/instagram.png" alt="instagram"></a>
+                    <a href="<?php echo $GLOBALS['linkedin'] ?>"><img src="Utils/linkedin.png" alt="linkedin" class="linkedin"></a>
                 </div>
 
                 <?php
@@ -113,9 +113,9 @@ class userComponents
             <div>
                 <p class="H6">Social Media</p>
                 <div class="footer-social-media">
-                    <a href="https://www.facebook.com/abdellatif.aiteur"><img src="Utils/facebook.png" alt="facebook">WasfatiOrg</a>
-                    <a href="instagram.com/abdellatifaiteur/"><img src="Utils/instagram.png" alt="instagram">Wasfati01</a>
-                    <a href="https://www.linkedin.com/in/abdelatif-aiteur-29a2b1216/"><img src="Utils/linkedin.png" alt="linkedin" class="linkedin">WasfatiOrg</a>
+                    <a href="<?php echo $GLOBALS['facebook'] ?>"><img src="Utils/facebook.png" alt="facebook">WasfatiOrg</a>
+                    <a href="<?php echo $GLOBALS['instagram'] ?>"><img src="Utils/instagram.png" alt="instagram">Wasfati01</a>
+                    <a href="<?php echo $GLOBALS['linkedin'] ?>"><img src="Utils/linkedin.png" alt="linkedin" class="linkedin">WasfatiOrg</a>
                 </div>
             </div>
         </footer>
@@ -150,7 +150,12 @@ class userComponents
                                                                     echo $type . '&id=' . $Card['id'];
                                                                 } ?>" class="prm-btn">lire la suite</a>
             <?php
+            }else if($Card['healthy']==1){
+                ?>
+                    <p class="Secondary-btn"><?php  echo "Healthy"  ?></p>
+                <?php
             }
+
             ?>
         </div>
     <?php

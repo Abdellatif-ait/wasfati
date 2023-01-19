@@ -1,10 +1,21 @@
+<?php
+    header('Content-type: text/css; charset: UTF-8');
+    require_once __DIR__.'/../admin/Models/params.php';
+    $paramsModel=new paramsModel();
+    $params=$paramsModel->getParams();
+    foreach($params as $param){
+        $GLOBALS[$param['cle']]=$param['valeur'];
+    }
+?>
+
 :root {
-    --primary1: #DD5353;
-    --primary2: #B73E3E;
-    --secondary1: #DBC8AC;
-    --secondary2: #EDDBC0;
-    --bgRGB: 237, 219, 192;
-    --black: 34, 32, 32;
+    --primary1: <?php echo $GLOBALS['primary1']; ?>;
+    --primary2: <?php echo $GLOBALS['primary2']; ?>;
+    --secondary1: <?php echo $GLOBALS['secondary1']; ?>;
+    --secondary2: <?php echo $GLOBALS['secondary2']; ?>;
+    --bgRGB: <?php echo $GLOBALS['bgRGB']; ?>;
+    --black: <?php echo $GLOBALS['black']; ?>;
+    --body:  <?php echo $GLOBALS['body']; ?>;
 }
 
 * {
@@ -14,7 +25,9 @@
     font-family: 'Roboto', sans-serif;
     -webkit-user-drag: none;
 }
-
+body{
+    background-color: rgb(var(--body));
+}
 a, a:visited {
     text-decoration: none;
     color: rgb(var(--black));

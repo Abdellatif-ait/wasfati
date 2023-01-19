@@ -91,9 +91,9 @@
         }
         public function updateRecipe($recipe){
             $db=new database();
-            $sql="UPDATE recette SET titre=:titre, categorieID=:categorieID, difficulte=:difficulte, tempsPreparation=:timePreparation, tempsRepo=:timeRepo, tempsCuisson=:timeCuisson, imgPath=:imgPath, videoPath=:videoPath, calories=:calories, description=:description WHERE recetteID=:id";
+            $sql="UPDATE recette SET titre=:titre, categorieID=:categorieID, imgPath=:imgPath, videoPath=:videoPath,state=:state WHERE recetteID=:id";
             $stmt=$db->db->prepare($sql);
-            $stmt->execute(['id'=>$recipe['id'],'titre'=>$recipe['titre'],'categorieID'=>$recipe['categorieID'],'difficulte'=>$recipe['difficulte'],'timePreparation'=>$recipe['timePreparation'],'timeRepo'=>$recipe['timeRepo'],'timeCuisson'=>$recipe['timeCuisson'],'imgPath'=>$recipe['imgPath'] ,'videoPath'=>$recipe['videoPath'],'calories'=>$recipe['calories'],'description'=>$recipe['description']]);
+            $stmt->execute(['id'=>$recipe['id'],'titre'=>$recipe['titre'],'categorieID'=>$recipe['categorieID'],'imgPath'=>$recipe['imgPath'] ,'videoPath'=>$recipe['videoPath'],'state'=>$recipe['state']]);
             $db->disconnect();
         }
         //valider recette

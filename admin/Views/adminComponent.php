@@ -19,7 +19,7 @@ class adminComponent
             <meta name="description" content=<?php echo $description ?> />
             <meta name="keywords" content=<?php echo self::KEYS ?> />
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-            <link rel="stylesheet" href="style.css">
+            <link rel="stylesheet" href="style.php">
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
             <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
             <script src="index.js"></script>
@@ -124,9 +124,10 @@ class adminComponent
                         foreach ($list as $key => $value) {
                             // for each value
                             echo "<tr>";
+                            echo "<form method='post' action='index.php?action=update".$type."'>";
                             foreach ($value as $key => $valuee) {
                                 if (!is_array($valuee)) {
-                                    echo "<td>" . $valuee . "</td>";
+                                    echo "<td><input type='text' name='".$key."' value='" . $valuee . "'></input></td>";
                                 } else {
                                     echo "<td>";
                                     echo "";
@@ -144,12 +145,13 @@ class adminComponent
                             }
                             ?>
                             <td>
-                                <button class="Secondary-btn edit" data-id="<?php echo  $value['id'] ?>" data-type="<?php echo $type ?>">Modifier</button>
+                                <button type="submit" class="Secondary-btn edit" data-id="<?php echo  $value['id'] ?>" data-type="<?php echo $type ?>">Modifier</button>
                             </td>
                             <td>
                                 <button class="Secondary-btn delete" data-id="<?php echo $value['id'] ?>" id="supprimer" data-type="<?php echo $type ?>">Supprimer</button>
                             </td>
                         <?php
+                            echo '</form>';
                             echo "</tr>";
                         }
                         ?>
@@ -160,6 +162,7 @@ class adminComponent
                         element.addEventListener('click', function(e) {
                             let dataId = element.getAttribute('data-id');
                             let type = element.getAttribute('data-type');
+                            console.log(type);
                             $.ajax({
                                 url: "index.php?action=validation",
                                 type: "POST",
@@ -200,18 +203,20 @@ class adminComponent
                     btns = document.querySelectorAll('.edit');
                     btns.forEach(element => {
                         element.addEventListener('click', function(e) {
-                            let dataId = element.getAttribute('data-id');
-                            let type = element.getAttribute('data-type');
-                            $.ajax({
-                                url: "index.php?action=get<?php echo $type?>",
-                                type: "GET",
-                                data: {
-                                    id: dataId,
-                                },
-                                success: function(data) {
-                                    
-                                }
-                            })
+                            // let dataId = element.getAttribute('data-id');
+                            // let type = element.getAttribute('data-type');
+                            // $.ajax({
+                            //         url: "index.php?action=getOne<?php echo $type?>",
+                            //         type: "GET",
+                            //     data: {
+                            //         id: dataId,
+                            //     },
+                            //     success: function(data) {
+                            //         console.log(data);
+                            //         }
+                            //     })
+                            // $('.popout').attr('action', 'update<?php echo $type?>');
+                            // $('.popout').toggleClass('active');
                         })
                     });
                 </script>

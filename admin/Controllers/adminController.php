@@ -110,11 +110,11 @@ require_once __DIR__ . '/../Models/params.php';
             $type='';
         }
         switch ($type){
-            case 'recipes':
-                $data=$this->validerRecette();
-                break;
             case 'users':
-                $data=$this->validerUser();
+                $this->validerUser();
+                break;
+            case 'recipes':
+                $this->validerRecette();
                 break;
         }
     }
@@ -378,7 +378,17 @@ require_once __DIR__ . '/../Models/params.php';
         $model->addFete($titre);
         header('Location: index.php?action=mentoring&page=fetes');
     }
-    public function updateUser(){
+    public function addParams(){
+        if(!(isset($_POST['cle']))){
+            header('Location: index.php');
+        }
+        $param['cle'] = strip_tags(trim($_POST['cle']));
+        $param['valeur'] = strip_tags(trim($_POST['valeur']));
+        $Model = new paramsModel();
+        $Model->addParams($param);
+        header('Location: index.php?action=mentoring&page=params');
+    }
+    public function updateusers(){
         if(!(isset($_POST['email']))){
             header('Location: index.php');
         }
@@ -386,56 +396,29 @@ require_once __DIR__ . '/../Models/params.php';
         $user['nom'] = strip_tags(trim($_POST['nom']));
         $user['prenom'] = strip_tags(trim($_POST['prenom']));
         $user['email'] = strip_tags(trim($_POST['email']));
-        $user['password'] = strip_tags(trim($_POST['password']));
         $user['dateNaissance'] = strip_tags(trim($_POST['dateNaissance']));
-        //sexe
         $user['sexe']= strip_tags(trim($_POST['sexe']));
         $Model = new userModel();
         $Model->updateUser($user);
         header('Location: index.php?action=mentoring&page=users');
     }
-    public function updateRecette()
+    public function updaterecipes()
     {
         if(!(isset($_POST['titre']))){
             header('Location: index.php');
         }
         $recette['id']=$_POST['id'];
         $recette['titre'] = strip_tags(trim($_POST['titre']));
-        $recette['description'] = strip_tags(trim($_POST['description']));
-        $recette['difficulte'] = strip_tags(trim($_POST['difficulte']));
-        $recette['cout'] = strip_tags(trim($_POST['cout']));
-        $recette['temps'] = strip_tags(trim($_POST['temps']));
-        $recette['nbPersonne'] = strip_tags(trim($_POST['nbPersonne']));
-        $recette['categorie'] = strip_tags(trim($_POST['categorie']));
-        $recette['fete'] = strip_tags(trim($_POST['fete']));
-        $recette['ingredient'] = strip_tags(trim($_POST['ingredient']));
-        $recette['ingredient']=explode(',', $recette['ingredient']);
-        $recette['etape'] = strip_tags(trim($_POST['etape']));
-        $recette['etape']=explode(',', $recette['etape']);
-        $recette['image'] = $this->uploadFile($_FILES['image']);
+        $recette['categorieID'] = strip_tags(trim($_POST['categorieID']));
+        $recette['state'] = intval(strip_tags(trim($_POST['state'])));
+        $recette['imgPath'] = strip_tags(trim($_POST['imgPath']));
+        $recette['videoPath'] = strip_tags(trim($_POST['videoPath']));
+
         $Model = new recipeModel();
-        $composentModel= new composentModel();
         $Model->updateRecipe($recette);
-        $composentModel->deleteComposent($recette['id']);
-        $Model->deleteStep($recette['id']);
-        $ingredient['id']=$recette['id'];
-        foreach ($recette['ingredient'] as $value) {
-            $input=explode(':',$value);
-            $ingredient['titre']=$input[0];
-            $ingredient['quantite']=$input[1];
-            $composentModel->addComposent($ingredient);
-        }
-        $etape['id']=$recette['id'];
-        $index=1;
-        foreach ($recette['etape'] as $value) {
-            $etape['etape']=$index;
-            $etape['description']=$value;
-            $Model->addStep($etape);
-            $index+=1;
-        }
-        header('Location: index.php?action=mentoring&page=recettes');
+        header('Location: index.php?action=mentoring&page=recipes');
     }
-    public function updateSaison(){
+    public function updatesaison(){
         if(!(isset($_POST['titre']))){
             header('Location: index.php');
         }
@@ -452,44 +435,26 @@ require_once __DIR__ . '/../Models/params.php';
         $news['id']=$_POST['id'];
         $news['titre'] = strip_tags(trim($_POST['titre']));
         $news['description'] = strip_tags(trim($_POST['description']));
-        $news['imgPath'] = $this->uploadFile($_FILES['image']);
-        $news['videoPath'] = $this->uploadFile($_FILES['video']);
+        $news['imgPath'] = ($_POST['imgPath']);
+        $news['videoPath'] = ($_POST['videoPath']);
         $Model = new newsModel();
         $Model->updateNews($news);
         header('Location: index.php?action=mentoring&page=news');
     }
-    public function updateIngredient(){
+    public function updateingredients(){
         if(!(isset($_POST['titre']))){
             header('Location: index.php');
         }
         $ingredient['id']=$_POST['id'];
         $ingredient['titre'] = strip_tags(trim($_POST['titre']));
         $ingredient['originSaison'] = intval($_POST['saison']);
-        $ingredient['dispoSaison'] = strip_tags(trim($_POST['dispoSaison']));
-        $ingredient['infonutritionnelle'] = $_POST['infonutritionnelle'];
-        $ingredient['imgPath'] = $this->uploadFile($_FILES['image']);
+        $ingredient['imgPath'] = ($_POST['imgPath']);
         $ingredient['healthy'] = intval($_POST['healthy']);
-        $ingredient['dispoSaison']=explode(',', $ingredient['dispoSaison']);
-        $ingredient['infonutritionnelle']=explode(',',$ingredient['infonutritionnelle']);
         $Model = new ingredientModel();
         $Model->updateIngredient($ingredient);
-        $dipo=$ingredient['id'];
-        $Model->deleteDispo($dipo);
-        foreach ($ingredient['dispoSaison'] as $value) {
-            $dipo['saison']=intval($value);
-            $Model->addDispo($dipo);
-        }
-        $nurition=$ingredient['id'];
-        $Model->deleteNutrition($nurition);
-        foreach ($ingredient['infonutritionnelle'] as $value) {
-            $input=explode(':',$value);
-            $nurition['titre']=$input[0];
-            $nurition['description']=$input[1];
-            $Model->addNutrition($nurition);
-        }
         header('Location: index.php?action=mentoring&page=ingredient');
     }
-    public function updateCategorie(){
+    public function updatecategories(){
         if(!(isset($_POST['titre']))){
             header('Location: index.php');
         }
@@ -671,5 +636,15 @@ require_once __DIR__ . '/../Models/params.php';
             header('Location: index.php');
         }
     }
-
+    public function getOnerecipes()
+    {
+        if(isset($_GET['id'])){
+            $id = intval($_GET['id']);
+            $model = new recipeModel();
+            $recipe = $model->getRecipe($id,null);
+            return json_encode($recipe);
+        }else{
+            header('Location: index.php');
+        }
+    }
 }

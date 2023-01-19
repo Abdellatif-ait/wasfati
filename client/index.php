@@ -8,6 +8,10 @@ if(isset($_GET['action'])){
 }
 require_once(__DIR__.'/Controllers/userController.php');
 $controller = new userController();
+$params=$controller->getParams();
+foreach($params as $param){
+    $GLOBALS[$param['cle']]=$param['valeur'];
+}
 //check if action exists
 
 if($action==''){

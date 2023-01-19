@@ -40,9 +40,9 @@
         }
         public function updateUser($user){
             $db=new database();
-            $sql="UPDATE utilisateur SET nom=:nom,prenom=:prenom,mdp=:password,email=:email,sexe=:sexe,dateNaissance=:dateNaissance WHERE userID=:id";
+            $sql="UPDATE utilisateur SET nom=:nom,prenom=:prenom,email=:email,sexe=:sexe,dateNaissance=:dateNaissance WHERE userID=:id";
             $stmt=$db->db->prepare($sql);
-            $stmt->execute(['nom'=>$user['nom'],'prenom'=>$user['prenom'],'password'=>$user['password'],'email'=>$user['email'],'sexe'=>$user['sexe'],'dateNaissance'=>$user['dateNaissance'],'id'=>$user['id']]);
+            $stmt->execute(['nom'=>$user['nom'],'prenom'=>$user['prenom'],'email'=>$user['email'],'sexe'=>$user['sexe'],'dateNaissance'=>$user['dateNaissance'],'id'=>$user['id']]);
             $db->disconnect();
         }
         public function deleteUser($id){
